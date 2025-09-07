@@ -1,0 +1,1884 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Syed Manzar Ali • AI/ML Engineer</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #0f0f0f;
+            --bg-secondary: #000000;
+            --bg-tertiary: #000000;
+            --text-primary: #ffffff;
+            --text-secondary: #a3a3a3;
+            --text-muted: #737373;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --border: #404040;
+            --border-light: #525252;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: var(--text-primary);
+            scroll-behavior: smooth;
+            line-height: 1.6;
+        }
+
+        body {
+            background: var(--bg-primary);
+            padding: 24px;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* Premium animated background - More visible orbs */
+        .bg-orbs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.3;
+            animation: float 25s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            top: 5%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            top: 50%;
+            right: 10%;
+            animation-delay: -8s;
+        }
+
+        .orb-3 {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            bottom: 15%;
+            left: 15%;
+            animation-delay: -16s;
+        }
+
+        .orb-4 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            top: 20%;
+            right: 30%;
+            animation-delay: -12s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+
+            25% {
+                transform: translate(50px, -40px) rotate(90deg) scale(1.1);
+            }
+
+            50% {
+                transform: translate(-30px, 30px) rotate(180deg) scale(0.9);
+            }
+
+            75% {
+                transform: translate(-40px, -20px) rotate(270deg) scale(1.05);
+            }
+        }
+
+        /* Main container with proper sidebar layout */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        /* Glassmorphism effects */
+        .glass {
+            background: rgba(26, 26, 26, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Sidebar */
+        .profile-sidebar {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 40px;
+            position: sticky;
+            top: 24px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .profile-sidebar:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .avatar-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .avatar::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6, #06b6d4, #3b82f6);
+            background-size: 300% 300%;
+            border-radius: 50%;
+            z-index: -1;
+            animation: gradientRotate 4s ease infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .avatar:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.5);
+        }
+
+        .avatar:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes gradientRotate {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Easter egg animations */
+        .avatar[data-clicks="5"]::after {
+            content: "🚀";
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            font-size: 20px;
+            animation: bounce 0.6s ease;
+        }
+
+        .avatar[data-clicks="10"]::after {
+            content: "🎯";
+        }
+
+        .avatar[data-clicks="15"]::after {
+            content: "🔥";
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-15px);
+            }
+
+            60% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #ffffff, #a3a3a3);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .profile-subtitle {
+            color: var(--text-secondary);
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .contact {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .contact-pill {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            background: rgba(38, 38, 38, 0.6);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-family: 'JetBrains Mono', monospace;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-pill::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .contact-pill:hover {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: rgba(59, 130, 246, 0.4);
+            color: var(--text-primary);
+            transform: translateX(8px) scale(1.02);
+        }
+
+        .contact-pill:hover::before {
+            transform: translateX(100%);
+        }
+
+        .skills {
+            margin-top: 40px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), #8b5cf6);
+            animation: titleUnderline 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleUnderline {
+            0% {
+                width: 0;
+            }
+
+            100% {
+                width: 60px;
+            }
+        }
+
+        .skill-category {
+            margin-bottom: 32px;
+        }
+
+        .category-header {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-header::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(180deg, var(--accent), #8b5cf6);
+            border-radius: 2px;
+        }
+
+        .skill {
+            margin-bottom: 20px;
+            padding: 16px;
+            background: rgba(38, 38, 38, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), #8b5cf6, #06b6d4);
+            transform: scaleX(0);
+            transition: transform 0.6s ease;
+            transform-origin: left;
+        }
+
+        .skill:hover {
+            background: rgba(59, 130, 246, 0.05);
+            border-color: rgba(59, 130, 246, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .skill:hover::before {
+            transform: scaleX(1);
+        }
+
+        .skill-name {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .skill-description {
+            color: var(--text-secondary);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .skill-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .skill-tag {
+            padding: 4px 8px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 6px;
+            font-size: 11px;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .education-note {
+            margin-top: 32px;
+            padding: 24px;
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .hero-section {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 48px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.6), transparent);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .hero-section:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-title {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .main-title {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.2;
+            background: linear-gradient(135deg, #ffffff, #a3a3a3, #ffffff);
+            background-size: 200% 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShine 4s ease-in-out infinite;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .main-title:hover {
+            transform: scale(1.02);
+            filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.3));
+        }
+
+        @keyframes textShine {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .stand-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--accent);
+            font-weight: 600;
+            padding: 8px 16px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-description {
+            color: var(--text-secondary);
+            font-size: 18px;
+            line-height: 1.7;
+            margin: 32px 0;
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 16px 32px;
+            background: var(--accent);
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%) skewX(-15deg);
+            transition: transform 0.6s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .cta-button:hover::before {
+            transform: translateX(100%) skewX(-15deg);
+        }
+
+        /* Projects Grid */
+        .projects-section {
+            margin-top: 48px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 32px;
+            margin-top: 32px;
+        }
+
+        .project-card {
+            background: rgba(26, 26, 26, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 32px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                    rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .project-tag {
+            padding: 6px 12px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Experience Section */
+        .experience-section {
+            margin-top: 48px;
+        }
+
+        .experience-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .experience-item {
+            background: rgba(26, 26, 26, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--accent);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--accent), #8b5cf6);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .experience-item:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateX(8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .experience-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .experience-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .experience-description {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* Certifications */
+        .certifications {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 32px;
+        }
+
+        .cert-pill {
+            padding: 20px;
+            background: rgba(26, 26, 26, 0.7);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-align: center;
+            transition: all 0.3s ease;
+            line-height: 1.5;
+        }
+
+        .cert-pill:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 14px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        /* Konami code easter egg */
+        .konami-active .main-title {
+            animation: rainbow 2s linear infinite, textShine 4s ease-in-out infinite;
+        }
+
+        @keyframes rainbow {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .profile-sidebar {
+                position: relative;
+                top: 0;
+            }
+
+            .avatar-section {
+                flex-direction: row;
+                text-align: left;
+                align-items: center;
+            }
+
+            .avatar {
+                margin-bottom: 0;
+                margin-right: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 16px;
+            }
+
+            .hero-section {
+                padding: 32px 24px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                justify-content: center;
+                text-align: center;
+            }
+
+            .cta-row {
+                justify-content: center;
+            }
+
+            .orb {
+                display: none;
+            }
+        }
+
+        /* Smooth entrance animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Skill-specific animations */
+        .skill-animation {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 1000;
+            font-size: 48px;
+            opacity: 0;
+            animation: skillPop 2s ease-out forwards;
+        }
+
+        @keyframes skillPop {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5) rotate(-180deg);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.2) rotate(0deg);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8) rotate(180deg);
+            }
+        }
+
+        /* Programming animation */
+        .programming-animation {
+            font-family: 'JetBrains Mono', monospace;
+            color: #3b82f6;
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+
+        /* Database animation */
+        .database-animation {
+            color: #10b981;
+            text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+        }
+
+        /* Backend animation */
+        .backend-animation {
+            color: #8b5cf6;
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+        }
+
+        /* ML animation */
+        .ml-animation {
+            color: #f59e0b;
+            text-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+        }
+
+        /* LLM animation */
+        .llm-animation {
+            color: #ef4444;
+            text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+        }
+
+        /* Cloud animation */
+        .cloud-animation {
+            color: #06b6d4;
+            text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+        }
+
+        /* 3D Neural Network Animation */
+        /* .neural-network-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .neural-network-canvas {
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .neural-network-container {
+                display: none;
+            }
+        } */
+
+        .project-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .project-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .project-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .project-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .project-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .project-card:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Premium animated background -->
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+    </div>
+
+    <!-- <div class="neural-network-container">
+        <div id="neuralNetworkCanvas" class="neural-network-canvas"></div>
+    </div> -->
+    
+
+    <div class="container">
+        <!-- SIDEBAR -->
+        <aside class="profile-sidebar">
+            <div class="avatar-section">
+                <div class="avatar">
+                    <img src="me.jpg" alt="Syed Manzar Ali" />
+                </div>
+                <div>
+                    <div class="profile-name">Syed Manzar Ali</div>
+                    <div class="profile-subtitle">AI/ML Backend Engineer</div>
+                </div>
+            </div>
+
+            <div class="contact">
+                <a href="https://maps.google.com/?q=Karachi,Pakistan" target="_blank" class="contact-pill">
+                    <span>📍</span>
+                    <span>Karachi, Pakistan</span>
+                </a>
+                <a href="mailto:manzar52@hotmail.com" class="contact-pill">
+                    <span>✉️</span>
+                    <span>manzar52@hotmail.com</span>
+                </a>
+                <a href="tel:+923131207668" class="contact-pill">
+                    <span>📱</span>
+                    <span>+92-313-1207668</span>
+                </a>
+                <a href="https://github.com/ManzarAli25" target="_blank" class="contact-pill">
+                    <span>🐙</span>
+                    <span>github.com/ManzarAli25</span>
+                </a>
+                <a href="https://linkedin.com/in/manzarali-connect" target="_blank" class="contact-pill">
+                    <span>💼</span>
+                    <span>linkedin.com/in/manzarali-connect</span>
+                </a>
+            </div>
+
+            <div class="skills">
+                <h4 class="section-title">Skills & Expertise</h4>
+
+                <div class="skill-category">
+                    <div class="category-header">� Prograrmming & Databases</div>
+
+                    <div class="skill" data-skill="programming">
+                        <div class="skill-name">Core Programming Languages</div>
+                        <div class="skill-description">Python, Java, JavaScript, HTML/CSS, SQL for full-stack
+                            development</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Java</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">SQL</span>
+                        </div>
+                    </div>
+
+                    <div class="skill" data-skill="database">
+                        <div class="skill-name">Database Systems & ORM</div>
+                        <div class="skill-description">MySQL, MongoDB, ORM frameworks for data persistence and
+                            management</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">MySQL</span>
+                            <span class="skill-tag">NoSQL</span>
+                            <span class="skill-tag">Search</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="category-header">⚡ AI/ML & LLM</div>
+
+                    <div class="skill">
+                        <div class="skill-name">Large Language Models</div>
+                        <div class="skill-description">GPT integration, RAG systems, LangChain, prompt engineering</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">RAG</span>
+                            <span class="skill-tag">LangChain</span>
+                            <span class="skill-tag">Prompting</span>
+                        </div>
+                    </div>
+
+                    <div class="skill">
+                        <div class="skill-name">Machine Learning</div>
+                        <div class="skill-description">Neural networks, anomaly detection, ensemble methods, MLOps</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">PyTorch</span>
+                            <span class="skill-tag">Scikit-learn</span>
+                            <span class="skill-tag">MLOps</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="category-header">🚀 Advanced Tech</div>
+
+                    <div class="skill">
+                        <div class="skill-name">Model Fine-tuning</div>
+                        <div class="skill-description">PEFT, LoRA, RLHF, parameter-efficient training</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">PEFT</span>
+                            <span class="skill-tag">LoRA</span>
+                            <span class="skill-tag">RLHF</span>
+                        </div>
+                    </div>
+
+                    <div class="skill">
+                        <div class="skill-name">Infrastructure</div>
+                        <div class="skill-description">Kafka, Celery, Docker, CI/CD, cloud deployment</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Kafka</span>
+                            <span class="skill-tag">Docker</span>
+                            <span class="skill-tag">DevOps</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="education-note">
+                    🎓 <strong>B.S. Software Engineering</strong><br>
+                    Sir Syed University of Engineering & Technology<br>
+                    <strong>GPA:</strong> 3.58/4.00 • <strong>Graduated:</strong> July 2025
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <section class="hero-section">
+                <div class="hero-title">
+                    <h1 class="main-title">AI/ML Engineer — Backend & LLM Systems</h1>
+                    <center>
+                        <div class="stand-name">I ask what machines can’t do, then make them do it.</div>
+                    </center>
+                </div>
+
+                <p class="hero-description">
+                    I architect systems where AI meets reality — fast, reliable, and devastatingly effective.
+                    Specializing in decision-support systems, anomaly detection, and real-time ML pipelines
+                    that actually work in production. Building the future, one algorithm at a time.
+                </p>
+
+                <div class="cta-row">
+                    <a class="cta-button" href="#projects">View My Projects</a>
+                    <div style="color: var(--text-secondary); font-size: 16px; font-weight: 500;">
+                        Open to collaborations • Available for interviews
+                    </div>
+                </div>
+            </section>
+
+            <section class="projects-section" id="projects">
+                <h2 class="section-title">Featured Projects</h2>
+
+                <div class="projects-grid">
+                    <article class="project-card fade-in">
+                        <h3>Decision-Support Model — ThreatCure</h3>
+                        <p class="project-description">
+                            Deployed GPT-OSS-120B false-positive scoring model with Elasticsearch integration.
+                            Achieved 94.6% accuracy and 0.989 ROC-AUC for SOC analyst support. Celery-based
+                            60-second pipeline scheduling for continuous offense evaluation.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">GPT-OSS-120B</span>
+                            <span class="project-tag">Elasticsearch</span>
+                            <span class="project-tag">Celery</span>
+                            <span class="project-tag">94.6% Acc</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card fade-in">
+                        <h3>Zero-day Anomaly Detection Framework</h3>
+                        <p class="project-description">
+                            Multi-view ensemble framework with Kafka streaming for real-time security event processing.
+                            Segmented logs into diverse views, applied anomaly detection on each, and ensembled
+                            results for superior zero-day threat detection.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Kafka</span>
+                            <span class="project-tag">Multi-view ML</span>
+                            <span class="project-tag">Elasticsearch</span>
+                            <span class="project-tag">Real-time</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card fade-in">
+                        <h3>LegalEase — AI Legal Advisory Platform</h3>
+                        <p class="project-description">
+                            Hybrid LLM + RAG pipeline for Pakistani law queries with real lawyer consultancy
+                            integration.
+                            Collaboration with Kazi Associates, qualified for Stage 3 at FICS (NUST),
+                            presented at ICISCT'25.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">RAG</span>
+                            <span class="project-tag">LangChain</span>
+                            <span class="project-tag">Legal AI</span>
+                            <span class="project-tag">ICISCT'25</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card fade-in">
+                        <h3>DialogSum — FLAN-T5 Fine-tuning</h3>
+                        <p class="project-description">
+                            Fine-tuned FLAN-T5 on DialogSum using full fine-tuning and PEFT with LoRA and prompt tuning.
+                            Comprehensive evaluation with ROUGE metrics and human baseline comparisons for
+                            efficiency-accuracy balance.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">FLAN-T5</span>
+                            <span class="project-tag">LoRA</span>
+                            <span class="project-tag">PEFT</span>
+                            <span class="project-tag">ROUGE</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card fade-in">
+                        <h3>Skinly Cure — AI Skin Diagnosis</h3>
+                        <p class="project-description">
+                            Vision Transformers + Gemini analysis for dermatological evaluation. Enhanced early
+                            detection capabilities and improved affordable healthcare access for underserved
+                            populations.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">ViT</span>
+                            <span class="project-tag">Gemini</span>
+                            <span class="project-tag">Healthcare AI</span>
+                            <span class="project-tag">Accessibility</span>
+                        </div>
+                    </article>
+
+                    <article class="project-card fade-in">
+                        <h3>Agent-Red — AI Debate Simulator</h3>
+                        <p class="project-description">
+                            LangGraph + LangChain debate system analyzing polarized Reddit arguments with advanced
+                            reasoning chains. Google X Kaggle GenAI Competition 2024 participant, exploring
+                            AI-driven discourse analysis.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">LangGraph</span>
+                            <span class="project-tag">LangChain</span>
+                            <span class="project-tag">Kaggle</span>
+                            <span class="project-tag">NLP</span>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="experience-section">
+                <h2 class="section-title">Professional Experience</h2>
+                <div class="experience-grid">
+                    <div class="experience-item">
+                        <div class="experience-title">ThreatCure Pvt. Ltd. — Backend Developer Specializing in AI/ML
+                        </div>
+                        <div class="experience-description">
+                            <strong>July 2025 – Present • Karachi, Pakistan</strong><br>
+                            • Developed and deployed a decision-support model for false-positive identification,
+                            leveraging open-weight LLMs (GPT-OSS-120B) to assign probabilities of offenses being false
+                            positives, integrated with Elasticsearch for querying, and achieving 94.6% accuracy, 0.989
+                            ROC-AUC to support SOC analyst decision-making.<br>
+                            • Integrated Celery-based scheduling to run the false-positive scoring pipeline every 60
+                            seconds, ensuring continuous offense evaluation and real-time analyst support.<br>
+                            • Built a multi-view anomaly detection framework for zero-day threat detection by segmenting
+                            logs into diverse views and applying anomaly detection on each view and ensembling the
+                            results, with Elasticsearch integration for scalable event indexing and retrieval.<br>
+                            • Integrated Kafka-based streaming for the zero-day anomaly detection system, enabling
+                            high-throughput real-time ingestion and processing of security events at scale.
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="experience-title">University of Karachi - Department of Computer Science (UBIT) —
+                            Teaching Assistant</div>
+                        <div class="experience-description">
+                            <strong>February 2025 - June 2025 • Karachi, Pakistan</strong><br>
+                            • Conducted tutorials and coding labs to teach Data Structures and Algorithms (DSA) in Java,
+                            helping students develop problem-solving skills and algorithmic thinking.<br>
+                            • Designed, implemented, and graded programming assignments and exams for over 100+
+                            students, ensuring fair and comprehensive assessment of coding proficiency.<br>
+                            • Provided 1:1 mentoring to help students transition from Dart to Java, improving their
+                            understanding of object-oriented programming and advanced DSA concepts such as recursion,
+                            trees, and graph algorithms.
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="experience-title">Pave International — Automation Engineer</div>
+                        <div class="experience-description">
+                            <strong>December 2024 – January 2025 • Remote</strong><br>
+                            • Developed a browser automation system using Python and Selenium, replacing manual data
+                            collection processes and increasing data extraction speed by ~70%.<br>
+                            • Automated data workflows to extract and process customer health information, enabling
+                            precise targeting of diabetic patients for marketing segmentation.<br>
+                            • Improved operational accuracy and reduced manual effort by ~80%, resulting in more
+                            effective campaign execution and higher lead conversion rates.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-title">Certifications & Achievements</h2>
+                <div class="certifications">
+                    <div class="cert-pill">🧠 Machine Learning in Production<br><strong>DeepLearning.AI</strong></div>
+                    <div class="cert-pill">🔗 LangChain for LLM Application
+                        Development<br><strong>DeepLearning.AI</strong></div>
+                    <div class="cert-pill">🤖 Generative AI with Large Language
+                        Models<br><strong>DeepLearning.AI</strong></div>
+                    <div class="cert-pill">📊 Stanford Machine Learning Specialization<br><strong>Stanford
+                            University</strong></div>
+                    <div class="cert-pill">⚡ Meta Back-End Developer Professional<br><strong>Meta</strong></div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        // Respect reduced motion preference
+        const isReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // 3D Neural Network Animation with Three.js
+        class NeuralNetworkAnimation {
+            constructor(container) {
+                this.container = container;
+                this.scene = null;
+                this.camera = null;
+                this.renderer = null;
+                this.nodes = [];
+                this.connections = [];
+                this.animationFrame = null;
+                this.scrollProgress = 0;
+                this.signalProgress = 0;
+                this.isVisible = true;
+                
+                // Network architecture: [4, 6, 4, 2] (input, hidden1, hidden2, output)
+                this.layers = [4, 6, 4, 2];
+                this.layerSpacing = 3;
+                this.nodeSpacing = 1.5;
+                
+                // Performance settings
+                this.performanceMode = this.detectPerformanceMode();
+                this.targetFPS = this.performanceMode === 'low' ? 30 : 60;
+                this.frameInterval = 1000 / this.targetFPS;
+                this.lastRenderTime = 0;
+                
+                this.init();
+            }
+
+            detectPerformanceMode() {
+                const deviceMemory = navigator.deviceMemory || 4;
+                const hardwareConcurrency = navigator.hardwareConcurrency || 4;
+                return (deviceMemory < 4 || hardwareConcurrency < 4) ? 'low' : 'high';
+            }
+
+            init() {
+                this.setupScene();
+                this.createNetwork();
+                this.setupEventListeners();
+                this.animate();
+            }
+
+            setupScene() {
+                // Scene
+                this.scene = new THREE.Scene();
+                
+                // Camera
+                this.camera = new THREE.PerspectiveCamera(
+                    75, 
+                    window.innerWidth / window.innerHeight, 
+                    0.1, 
+                    1000
+                );
+                this.camera.position.set(0, 0, 12);
+                
+                // Renderer
+                this.renderer = new THREE.WebGLRenderer({ 
+                    antialias: this.performanceMode === 'high',
+                    alpha: true,
+                    powerPreference: "high-performance"
+                });
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                this.renderer.setClearColor(0x000000, 0);
+                
+                this.container.appendChild(this.renderer.domElement);
+            }
+
+            createNetwork() {
+                const totalWidth = (this.layers.length - 1) * this.layerSpacing;
+                
+                // Create nodes for each layer
+                this.layers.forEach((nodeCount, layerIndex) => {
+                    const layerNodes = [];
+                    const x = -totalWidth / 2 + layerIndex * this.layerSpacing;
+                    const totalHeight = (nodeCount - 1) * this.nodeSpacing;
+                    
+                    for (let nodeIndex = 0; nodeIndex < nodeCount; nodeIndex++) {
+                        const y = -totalHeight / 2 + nodeIndex * this.nodeSpacing;
+                        const z = (Math.random() - 0.5) * 0.5; // Slight depth variation
+                        
+                        // Node geometry based on layer type
+                        let geometry, material;
+                        if (layerIndex === 0 || layerIndex === this.layers.length - 1) {
+                            // Input/Output layers: cubes
+                            geometry = new THREE.BoxGeometry(0.3, 0.3, 0.3);
+                            material = new THREE.MeshBasicMaterial({ 
+                                color: layerIndex === 0 ? 0x3b82f6 : 0x10b981,
+                                transparent: true,
+                                opacity: 0.8
+                            });
+                        } else {
+                            // Hidden layers: spheres
+                            geometry = new THREE.SphereGeometry(0.2, 16, 16);
+                            material = new THREE.MeshBasicMaterial({ 
+                                color: 0x8b5cf6,
+                                transparent: true,
+                                opacity: 0.7
+                            });
+                        }
+                        
+                        const node = new THREE.Mesh(geometry, material);
+                        node.position.set(x, y, z);
+                        node.userData = {
+                            layerIndex,
+                            nodeIndex,
+                            originalScale: node.scale.clone(),
+                            activated: false,
+                            activationTime: 0
+                        };
+                        
+                        this.scene.add(node);
+                        layerNodes.push(node);
+                    }
+                    
+                    this.nodes.push(layerNodes);
+                });
+                
+                // Create connections between layers
+                for (let layerIndex = 0; layerIndex < this.layers.length - 1; layerIndex++) {
+                    const currentLayer = this.nodes[layerIndex];
+                    const nextLayer = this.nodes[layerIndex + 1];
+                    
+                    currentLayer.forEach(fromNode => {
+                        nextLayer.forEach(toNode => {
+                            // Create connection line
+                            const geometry = new THREE.BufferGeometry().setFromPoints([
+                                fromNode.position,
+                                toNode.position
+                            ]);
+                            
+                            // Random weight determines color (blue for positive, orange for negative)
+                            const weight = (Math.random() - 0.5) * 2;
+                            const color = weight > 0 ? 0x3b82f6 : 0xf59e0b;
+                            
+                            const material = new THREE.LineBasicMaterial({ 
+                                color: color,
+                                transparent: true,
+                                opacity: 0.2
+                            });
+                            
+                            const line = new THREE.Line(geometry, material);
+                            line.userData = {
+                                fromNode,
+                                toNode,
+                                weight,
+                                originalOpacity: 0.2,
+                                activated: false
+                            };
+                            
+                            this.scene.add(line);
+                            this.connections.push(line);
+                        });
+                    });
+                }
+            }
+
+            setupEventListeners() {
+                // Scroll-based signal propagation
+                let scrollTimeout;
+                const updateProgress = () => {
+                    const scrolled = window.pageYOffset;
+                    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                    this.scrollProgress = Math.min(scrolled / (maxScroll * 0.6), 1);
+                    this.signalProgress = this.scrollProgress;
+                };
+
+                window.addEventListener('scroll', () => {
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(updateProgress, 16);
+                }, { passive: true });
+
+                // Resize handling
+                let resizeTimeout;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(() => {
+                        this.camera.aspect = window.innerWidth / window.innerHeight;
+                        this.camera.updateProjectionMatrix();
+                        this.renderer.setSize(window.innerWidth, window.innerHeight);
+                    }, 250);
+                }, { passive: true });
+
+                // Visibility optimization
+                const observer = new IntersectionObserver((entries) => {
+                    this.isVisible = entries[0].isIntersecting;
+                }, { threshold: 0.1 });
+                observer.observe(this.container);
+
+                // Pause when tab hidden
+                document.addEventListener('visibilitychange', () => {
+                    if (document.hidden) {
+                        this.pauseAnimation();
+                    } else {
+                        this.resumeAnimation();
+                    }
+                });
+            }
+
+            updateSignalPropagation() {
+                const time = Date.now() * 0.001;
+                const signalSpeed = 2.0;
+                const currentSignalPos = (time * signalSpeed) % (this.layers.length + 2);
+                
+                // Reset all activations
+                this.nodes.flat().forEach(node => {
+                    node.userData.activated = false;
+                    node.scale.copy(node.userData.originalScale);
+                });
+                
+                this.connections.forEach(connection => {
+                    connection.userData.activated = false;
+                    connection.material.opacity = connection.userData.originalOpacity;
+                });
+                
+                // Activate nodes and connections based on signal position
+                for (let layerIndex = 0; layerIndex < this.layers.length; layerIndex++) {
+                    const layerProgress = currentSignalPos - layerIndex;
+                    
+                    if (layerProgress >= 0 && layerProgress <= 1) {
+                        // Activate nodes in current layer
+                        this.nodes[layerIndex].forEach(node => {
+                            node.userData.activated = true;
+                            const pulseScale = 1 + Math.sin(layerProgress * Math.PI) * 0.3;
+                            node.scale.setScalar(pulseScale);
+                        });
+                        
+                        // Activate connections from previous layer
+                        if (layerIndex > 0) {
+                            this.connections.forEach(connection => {
+                                if (connection.userData.fromNode.userData.layerIndex === layerIndex - 1) {
+                                    connection.userData.activated = true;
+                                    connection.material.opacity = connection.userData.originalOpacity + 0.6;
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+
+            animate() {
+                // FPS limiting
+                const now = performance.now();
+                if (now - this.lastRenderTime < this.frameInterval) {
+                    this.animationFrame = requestAnimationFrame(() => this.animate());
+                    return;
+                }
+                this.lastRenderTime = now;
+
+                if (!this.isVisible) {
+                    this.animationFrame = requestAnimationFrame(() => this.animate());
+                    return;
+                }
+
+                // Update signal propagation based on scroll
+                if (this.signalProgress > 0) {
+                    this.updateSignalPropagation();
+                }
+
+                // Gentle camera rotation
+                const time = Date.now() * 0.0005;
+                this.camera.position.x = Math.sin(time) * 2;
+                this.camera.position.y = Math.cos(time * 0.7) * 1;
+                this.camera.lookAt(0, 0, 0);
+
+                // Render
+                this.renderer.render(this.scene, this.camera);
+                this.animationFrame = requestAnimationFrame(() => this.animate());
+            }
+
+            pauseAnimation() {
+                if (this.animationFrame) {
+                    cancelAnimationFrame(this.animationFrame);
+                    this.animationFrame = null;
+                }
+            }
+
+            resumeAnimation() {
+                if (!this.animationFrame) {
+                    this.animate();
+                }
+            }
+
+            destroy() {
+                if (this.animationFrame) {
+                    cancelAnimationFrame(this.animationFrame);
+                }
+                
+                // Clean up Three.js objects
+                this.scene.traverse((object) => {
+                    if (object.geometry) object.geometry.dispose();
+                    if (object.material) {
+                        if (Array.isArray(object.material)) {
+                            object.material.forEach(material => material.dispose());
+                        } else {
+                            object.material.dispose();
+                        }
+                    }
+                });
+                
+                this.renderer.dispose();
+                if (this.container.contains(this.renderer.domElement)) {
+                    this.container.removeChild(this.renderer.domElement);
+                }
+            }
+        }
+
+        // Initialize Neural Network Animation
+        let neuralNetworkAnimation = null;
+        function initNeuralNetworkAnimation() {
+            if (isReducedMotion) return;
+            
+            const container = document.getElementById('neuralNetworkCanvas');
+            if (container) {
+                neuralNetworkAnimation = new NeuralNetworkAnimation(container);
+            }
+        }
+
+        // Avatar click counter (easter egg)
+        let avatarClicks = 0;
+        function initAvatarEasterEgg() {
+            const avatar = document.querySelector('.avatar');
+            avatar.addEventListener('click', () => {
+                avatarClicks++;
+                avatar.setAttribute('data-clicks', avatarClicks);
+
+                // Special messages
+                if (avatarClicks === 5) {
+                    showToast("🚀 You're persistent!");
+                } else if (avatarClicks === 10) {
+                    showToast("🎯 Halfway to something special...");
+                } else if (avatarClicks === 15) {
+                    showToast("🔥 You found the secret! Check the console 👀");
+                    console.log(`
+╔══════════════════════════════════════╗
+║  🎉 CONGRATULATIONS! 🎉              ║
+║                                      ║
+║  You found the hidden easter egg!   ║
+║  Here's a secret message:           ║
+║                                      ║
+║  "The best ML models are like        ║
+║   good jokes - if you have to        ║
+║   explain them, they're probably     ║
+║   overfitted." 😄                    ║
+║                                      ║
+║  - Manzar (probably)                 ║
+╚══════════════════════════════════════╝
+                    `);
+                }
+            });
+        }
+
+        // Konami code easter egg
+        let konamiCode = [];
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+
+        function initKonamiCode() {
+            document.addEventListener('keydown', (e) => {
+                konamiCode.push(e.code);
+                if (konamiCode.length > konamiSequence.length) {
+                    konamiCode.shift();
+                }
+
+                if (konamiCode.join(',') === konamiSequence.join(',')) {
+                    document.body.classList.add('konami-active');
+                    showToast("🌈 KONAMI CODE ACTIVATED! Rainbow mode ON!");
+                    setTimeout(() => {
+                        document.body.classList.remove('konami-active');
+                        showToast("✨ Back to normal... or are we?");
+                    }, 10000);
+                    konamiCode = [];
+                }
+            });
+        }
+
+        // Toast notification system
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: rgba(26, 26, 26, 0.95);
+                backdrop-filter: blur(20px);
+                color: white;
+                padding: 16px 20px;
+                border-radius: 12px;
+                border: 1px solid rgba(59, 130, 246, 0.3);
+                z-index: 10000;
+                font-family: 'Inter', sans-serif;
+                font-size: 14px;
+                transform: translateX(100%);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            `;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.style.transform = 'translateX(0)', 100);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Magnetic effect for project cards
+        function initMagneticEffect() {
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+                    card.style.setProperty('--mouse-x', x + '%');
+                    card.style.setProperty('--mouse-y', y + '%');
+
+                    // Subtle magnetic pull
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+                    const deltaX = (e.clientX - centerX) * 0.05;
+                    const deltaY = (e.clientY - centerY) * 0.05;
+
+                    card.style.transform = `translateY(-8px) scale(1.02) translate(${deltaX}px, ${deltaY}px)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = '';
+                });
+            });
+        }
+
+        // Parallax effect for orbs
+        function initParallaxOrbs() {
+            if (isReducedMotion) return;
+
+            document.addEventListener('mousemove', (e) => {
+                const orbs = document.querySelectorAll('.orb');
+                const mouseX = e.clientX / window.innerWidth;
+                const mouseY = e.clientY / window.innerHeight;
+
+                orbs.forEach((orb, index) => {
+                    const speed = (index + 1) * 0.3;
+                    const x = (mouseX - 0.5) * speed * 30;
+                    const y = (mouseY - 0.5) * speed * 30;
+                    orb.style.transform = `translate(${x}px, ${y}px)`;
+                });
+            });
+        }
+
+        // Contact pill copy functionality - Updated to not copy for links
+        function initContactPills() {
+            document.querySelectorAll('.contact-pill').forEach(pill => {
+                // Only add copy functionality if it's not a link
+                if (!pill.href) {
+                    pill.addEventListener('click', () => {
+                        const text = pill.textContent.replace(/[📍✉️📱🐙💼]/g, '').trim();
+                        if (navigator.clipboard) {
+                            navigator.clipboard.writeText(text).then(() => {
+                                showToast(`📋 Copied: ${text}`);
+                            }).catch(() => {
+                                console.warn('Clipboard not supported');
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+        // Skill-specific animations
+        function initSkillAnimations() {
+            const skillAnimations = {
+                'programming': ['{ }', '</>', 'def()', 'console.log()', 'System.out'],
+                'database': ['🗄️', 'SELECT *', 'INSERT', 'MongoDB', 'MySQL'],
+                'backend': ['🚀', 'API', 'Django', 'FastAPI', 'REST'],
+                'tools': ['🔧', 'Git', 'Selenium', 'Postman', 'Debug'],
+                'ml': ['🤖', '∑', 'Neural Net', 'Pandas', 'NumPy'],
+                'llm': ['🧠', 'GPT', 'RAG', 'LangChain', 'Prompt'],
+                'cloud': ['☁️', 'SageMaker', 'MLOps', 'Deploy', 'Scale']
+            };
+
+            document.querySelectorAll('.skill[data-skill]').forEach(skill => {
+                skill.addEventListener('click', () => {
+                    const skillType = skill.getAttribute('data-skill');
+                    const animations = skillAnimations[skillType];
+
+                    if (animations) {
+                        const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+                        showSkillAnimation(randomAnimation, skillType);
+                    }
+                });
+            });
+        }
+
+        function showSkillAnimation(text, skillType) {
+            const animation = document.createElement('div');
+            animation.className = `skill-animation ${skillType}-animation`;
+            animation.textContent = text;
+            document.body.appendChild(animation);
+
+            setTimeout(() => animation.remove(), 2000);
+        }
+
+        // Initialize on DOM load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize contact pills
+            initContactPills();
+
+            // Initialize easter eggs and effects
+            initAvatarEasterEgg();
+            initKonamiCode();
+            initMagneticEffect();
+            initParallaxOrbs();
+            initSkillAnimations();
+
+            // Initialize 3D Neural Network animation
+            initNeuralNetworkAnimation();
+
+            // Smooth scroll for CTA button
+            document.querySelector('.cta-button').addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelector('#projects').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+
+            // Welcome message (subtle easter egg)
+            setTimeout(() => {
+                console.log(`
+👋 Hey there, curious developer!
+
+Welcome to my portfolio. I see you're checking the console...
+That's exactly the kind of curiosity I love to see!
+
+🥚 Easter eggs hidden throughout:
+• Try clicking my avatar multiple times
+• Try the Konami code (↑↑↓↓←→←→BA)
+• Hover around and explore the interactions
+
+Built with love, coffee, and way too many CSS animations.
+- Manzar ✨
+                `);
+            }, 2000);
+        });
+    </script>
+</body>
+
+</html>

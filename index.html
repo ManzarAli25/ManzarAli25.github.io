@@ -6,226 +6,165 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Syed Manzar Ali • AI/ML Engineer</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Roboto+Mono:wght@400;700&display=swap"
         rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         :root {
-            --bg-primary: #0f0f0f;
-            --bg-secondary: #000000;
-            --bg-tertiary: #000000;
-            --text-primary: #ffffff;
-            --text-secondary: #a3a3a3;
-            --text-muted: #737373;
-            --accent: #3b82f6;
-            --accent-hover: #2563eb;
-            --border: #404040;
-            --border-light: #525252;
-            --success: #10b981;
-            --warning: #f59e0b;
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --bg-tertiary: #0f3460;
+            --text-primary: #eaeaea;
+            --text-secondary: #a8b2d1;
+            --text-muted: #7d8597;
+            --accent: #4cc9f0;
+            --accent-hover: #4895ef;
+            --border: #533483;
+            --border-light: #7209b7;
+            --success: #06ffa5;
+            --warning: #ff9e00;
+            --pixel-size: 4px;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
         }
 
         html,
         body {
             height: 100%;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-family: 'VT323', monospace;
             color: var(--text-primary);
             scroll-behavior: smooth;
-            line-height: 1.6;
-        }
-
-        body {
-            background: var(--bg-primary);
-            padding: 24px;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            position: relative;
+            line-height: 1.4;
+            background-color: var(--bg-primary);
             overflow-x: hidden;
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation: none !important;
-                transition: none !important;
-            }
+        body {
+            padding: 24px;
+            min-height: 100vh;
+            position: relative;
+            background-image: 
+                linear-gradient(var(--accent) 1px, transparent 1px),
+                linear-gradient(90deg, var(--accent) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: -1px -1px;
         }
 
-        /* Enhanced animated background with circuit-like connections */
-        .bg-orbs {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.3;
-            animation: float 25s infinite ease-in-out;
-        }
-
-        .orb-1 {
-            width: 400px;
-            height: 400px;
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            top: 5%;
-            left: 5%;
-            animation-delay: 0s;
-        }
-
-        .orb-2 {
-            width: 300px;
-            height: 300px;
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            top: 50%;
-            right: 10%;
-            animation-delay: -8s;
-        }
-
-        .orb-3 {
-            width: 250px;
-            height: 250px;
-            background: linear-gradient(135deg, #06b6d4, #0891b2);
-            bottom: 15%;
-            left: 15%;
-            animation-delay: -16s;
-        }
-
-        .orb-4 {
-            width: 200px;
-            height: 200px;
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            top: 20%;
-            right: 30%;
-            animation-delay: -12s;
-        }
-
-        /* Circuit connections between orbs */
-        .circuit-connection {
-            position: absolute;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            transform-origin: left center;
-            z-index: -1;
-            opacity: 0.2;
-        }
-
-        .circuit-node {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
-            z-index: -1;
-            opacity: 0;
-            animation: circuitPulse 3s infinite;
-        }
-
-        @keyframes circuitPulse {
-            0%, 100% { opacity: 0; transform: scale(0.8); }
-            50% { opacity: 0.6; transform: scale(1.2); }
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translate(0, 0) rotate(0deg) scale(1);
-            }
-
-            25% {
-                transform: translate(50px, -40px) rotate(90deg) scale(1.1);
-            }
-
-            50% {
-                transform: translate(-30px, 30px) rotate(180deg) scale(0.9);
-            }
-
-            75% {
-                transform: translate(-40px, -20px) rotate(270deg) scale(1.05);
-            }
-        }
-
-        /* Electric pulse animation */
-        .electric-pulse {
+        /* Pixelated background */
+        .pixel-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
             z-index: -1;
             overflow: hidden;
         }
 
-        .pulse {
+        .pixel-star {
             position: absolute;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0;
-            animation: electricPulse 8s infinite;
+            background-color: var(--text-primary);
+            width: var(--pixel-size);
+            height: var(--pixel-size);
+            animation: twinkle 3s infinite;
         }
 
-        @keyframes electricPulse {
-            0% {
-                transform: scale(0);
-                opacity: 0.7;
-            }
-            100% {
-                transform: scale(8);
-                opacity: 0;
-            }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
         }
 
-        /* Main container with proper sidebar layout */
+        /* Pixelated animated characters */
+        .pixel-character {
+            position: fixed;
+            width: 32px;
+            height: 32px;
+            z-index: 10;
+            image-rendering: pixelated;
+        }
+
+        .pixel-cat {
+            bottom: 20px;
+            left: 20px;
+            animation: walkCat 20s infinite linear;
+        }
+
+        .pixel-robot {
+            top: 100px;
+            right: 50px;
+            animation: floatRobot 15s infinite ease-in-out;
+        }
+
+        .pixel-rocket {
+            bottom: 150px;
+            right: 100px;
+            animation: flyRocket 25s infinite linear;
+        }
+
+        @keyframes walkCat {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(calc(100vw - 100px)) scaleX(1); }
+            50% { transform: translateX(calc(100vw - 100px)) scaleX(-1); }
+            75% { transform: translateX(0) scaleX(-1); }
+            100% { transform: translateX(0) scaleX(1); }
+        }
+
+        @keyframes floatRobot {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+
+        @keyframes flyRocket {
+            0% { transform: translate(0, 0) rotate(45deg); }
+            25% { transform: translate(calc(100vw - 200px), -100px) rotate(45deg); }
+            50% { transform: translate(calc(100vw - 200px), -100px) rotate(225deg); }
+            75% { transform: translate(0, 0) rotate(225deg); }
+            100% { transform: translate(0, 0) rotate(45deg); }
+        }
+
+        /* Main container */
         .container {
             max-width: 1400px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 380px 1fr;
-            gap: 48px;
+            gap: 32px;
             align-items: start;
         }
 
-        /* Glassmorphism effects */
-        .glass {
-            background: rgba(26, 26, 26, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        /* Pixelated UI elements */
+        .pixel-border {
+            border: var(--pixel-size) solid var(--border);
+            box-shadow: 
+                inset -2px -2px 0px rgba(0,0,0,0.5),
+                inset 2px 2px 0px rgba(255,255,255,0.2);
+            position: relative;
+        }
+
+        .pixel-border::before {
+            content: "";
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border: var(--pixel-size) solid var(--border-light);
+            z-index: -1;
         }
 
         /* Sidebar */
         .profile-sidebar {
-            background: rgba(26, 26, 26, 0.8);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 24px;
-            padding: 40px;
+            background: var(--bg-secondary);
+            padding: 32px;
             position: sticky;
             top: 24px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .profile-sidebar:hover {
-            border-color: rgba(59, 130, 246, 0.3);
-            transform: translateY(-4px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s;
         }
 
         .avatar-section {
@@ -233,384 +172,178 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
         }
 
         .avatar {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            background: var(--accent);
+            border: var(--pixel-size) solid var(--text-primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Inter', sans-serif;
-            font-size: 28px;
-            font-weight: 700;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
             color: white;
-            margin-bottom: 20px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
+            margin-bottom: 16px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+            image-rendering: pixelated;
         }
 
         .avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 50%;
-        }
-
-        .avatar::before {
-            content: '';
-            position: absolute;
-            inset: -3px;
-            background: linear-gradient(45deg, #3b82f6, #8b5cf6, #06b6d4, #3b82f6);
-            background-size: 300% 300%;
-            border-radius: 50%;
-            z-index: -1;
-            animation: gradientRotate 4s ease infinite;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .avatar:hover {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.5);
-        }
-
-        .avatar:hover::before {
-            opacity: 1;
-        }
-
-        @keyframes gradientRotate {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        /* Easter egg animations */
-        .avatar[data-clicks="5"]::after {
-            content: "🚀";
-            position: absolute;
-            top: -15px;
-            right: -15px;
-            font-size: 20px;
-            animation: bounce 0.6s ease;
-        }
-
-        .avatar[data-clicks="10"]::after {
-            content: "🎯";
-        }
-
-        .avatar[data-clicks="15"]::after {
-            content: "🔥";
-        }
-
-        @keyframes bounce {
-
-            0%,
-            20%,
-            50%,
-            80%,
-            100% {
-                transform: translateY(0);
-            }
-
-            40% {
-                transform: translateY(-15px);
-            }
-
-            60% {
-                transform: translateY(-8px);
-            }
+            image-rendering: pixelated;
         }
 
         .profile-name {
-            font-size: 24px;
-            font-weight: 700;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 16px;
             color: var(--text-primary);
             margin-bottom: 8px;
-            background: linear-gradient(135deg, #ffffff, #a3a3a3);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 0 var(--border);
+            letter-spacing: 1px;
         }
 
         .profile-subtitle {
             color: var(--text-secondary);
-            font-size: 16px;
-            font-weight: 500;
+            font-size: 18px;
+            font-weight: normal;
+            letter-spacing: 1px;
         }
 
         .contact {
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            margin: 32px 0;
+            gap: 12px;
+            margin: 24px 0;
         }
 
         .contact-pill {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 16px 20px;
-            background: rgba(38, 38, 38, 0.6);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border: var(--pixel-size) solid var(--border);
             color: var(--text-secondary);
-            font-size: 14px;
-            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s;
             text-decoration: none;
             position: relative;
-            overflow: hidden;
-        }
-
-        .contact-pill::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.6s ease;
+            font-family: 'Roboto Mono', monospace;
         }
 
         .contact-pill:hover {
-            background: rgba(59, 130, 246, 0.15);
-            border-color: rgba(59, 130, 246, 0.4);
-            color: var(--text-primary);
-            transform: translateX(8px) scale(1.02);
+            background: var(--accent);
+            color: var(--bg-primary);
+            transform: translateX(4px);
+            border-color: var(--text-primary);
         }
 
-        .contact-pill:hover::before {
-            transform: translateX(100%);
+        .contact-pill span:first-child {
+            font-size: 20px;
         }
 
         .skills {
-            margin-top: 40px;
+            margin-top: 32px;
         }
 
         .section-title {
-            font-size: 20px;
-            font-weight: 700;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
             color: var(--text-primary);
-            margin-bottom: 24px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--accent);
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent), #8b5cf6);
-            animation: titleUnderline 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes titleUnderline {
-            0% {
-                width: 0;
-            }
-
-            100% {
-                width: 60px;
-            }
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: var(--pixel-size) solid var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .skill-category {
-            margin-bottom: 32px;
+            margin-bottom: 24px;
         }
 
         .category-header {
-            font-size: 16px;
-            font-weight: 600;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
             color: var(--accent);
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
-        .category-header::before {
-            content: '';
-            width: 4px;
-            height: 20px;
-            background: linear-gradient(180deg, var(--accent), #8b5cf6);
-            border-radius: 2px;
-        }
-
-        /* Updated skill styles to include animations */
         .skill {
-            margin-bottom: 20px;
-            padding: 16px;
-            background: rgba(38, 38, 38, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            transition: all 0.3s ease;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border: var(--pixel-size) solid var(--border);
+            transition: all 0.2s;
             position: relative;
-            overflow: hidden;
-            /* New: Circuit board effect */
-            background-image: 
-                linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-
-        .skill::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent), #8b5cf6, #06b6d4);
-            transform: scaleX(0);
-            transition: transform 0.6s ease;
-            transform-origin: left;
-        }
-
-        /* New: Data flow animation for skills */
-        .skill::after {
-            content: '';
-            position: absolute;
-            top: -100%;
-            left: -100%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent, 
-                transparent, 
-                rgba(59, 130, 246, 0.1),
-                rgba(59, 130, 246, 0.2),
-                rgba(59, 130, 246, 0.1),
-                transparent,
-                transparent
-            );
-            transform: rotate(45deg);
-            animation: dataFlow 6s linear infinite;
-            opacity: 0.5;
         }
 
         .skill:hover {
-            background: rgba(59, 130, 246, 0.05);
-            border-color: rgba(59, 130, 246, 0.2);
+            border-color: var(--accent);
             transform: translateY(-2px);
-        }
-
-        .skill:hover::before {
-            transform: scaleX(1);
         }
 
         .skill-name {
             color: var(--text-primary);
-            font-weight: 600;
-            font-size: 15px;
+            font-weight: bold;
+            font-size: 16px;
             margin-bottom: 8px;
+            font-family: 'Roboto Mono', monospace;
         }
 
         .skill-description {
             color: var(--text-secondary);
-            font-size: 13px;
-            line-height: 1.5;
+            font-size: 16px;
+            line-height: 1.4;
+            margin-bottom: 8px;
         }
 
         .skill-tags {
             display: flex;
-            gap: 6px;
+            gap: 8px;
             flex-wrap: wrap;
-            margin-top: 12px;
         }
 
         .skill-tag {
             padding: 4px 8px;
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 6px;
-            font-size: 11px;
+            background: var(--bg-secondary);
+            border: var(--pixel-size) solid var(--border);
+            border-radius: 0;
+            font-size: 14px;
             color: var(--accent);
-            font-weight: 500;
+            font-family: 'Roboto Mono', monospace;
         }
 
         .education-note {
-            margin-top: 32px;
-            padding: 24px;
-            background: rgba(26, 26, 26, 0.6);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            font-size: 14px;
+            margin-top: 24px;
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border: var(--pixel-size) solid var(--border);
+            font-size: 16px;
             color: var(--text-secondary);
             text-align: center;
-            line-height: 1.6;
+            line-height: 1.4;
         }
 
         /* Main Content */
         .main-content {
             display: flex;
             flex-direction: column;
-            gap: 32px;
+            gap: 24px;
         }
 
         .hero-section {
-            background: rgba(26, 26, 26, 0.8);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 24px;
-            padding: 48px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.6), transparent);
-            animation: shimmer 3s ease-in-out infinite;
-        }
-
-        @keyframes shimmer {
-
-            0%,
-            100% {
-                opacity: 0;
-            }
-
-            50% {
-                opacity: 1;
-            }
-        }
-
-        .hero-section:hover {
-            border-color: rgba(59, 130, 246, 0.3);
-            transform: translateY(-4px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            background: var(--bg-secondary);
+            padding: 32px;
+            transition: all 0.3s;
         }
 
         .hero-title {
@@ -618,442 +351,280 @@
             align-items: center;
             gap: 20px;
             flex-wrap: wrap;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
         }
 
         .main-title {
-            font-size: clamp(32px, 5vw, 48px);
-            font-weight: 800;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 24px;
             color: var(--text-primary);
             line-height: 1.2;
-            background: linear-gradient(135deg, #ffffff, #a3a3a3, #ffffff);
-            background-size: 200% 200%;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: textShine 4s ease-in-out infinite;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .main-title:hover {
-            transform: scale(1.02);
-            filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.3));
-        }
-
-        @keyframes textShine {
-
-            0%,
-            100% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
+            text-shadow: 2px 2px 0 var(--border);
+            letter-spacing: 1px;
         }
 
         .stand-name {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'Roboto Mono', monospace;
             font-size: 14px;
             color: var(--accent);
-            font-weight: 600;
-            padding: 8px 16px;
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 8px;
+            padding: 8px;
+            background: var(--bg-tertiary);
+            border: var(--pixel-size) solid var(--border);
             text-transform: uppercase;
             letter-spacing: 1px;
+            white-space: nowrap;
         }
 
         .hero-description {
             color: var(--text-secondary);
             font-size: 18px;
-            line-height: 1.7;
-            margin: 32px 0;
+            line-height: 1.5;
+            margin: 24px 0;
         }
 
         .cta-row {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             align-items: center;
-            margin: 40px 0;
+            margin: 24px 0;
             flex-wrap: wrap;
         }
 
         .cta-button {
             display: inline-flex;
             align-items: center;
-            padding: 16px 32px;
+            padding: 12px 24px;
             background: var(--accent);
-            color: white;
-            font-weight: 600;
+            color: var(--bg-primary);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
             text-decoration: none;
-            border-radius: 12px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 16px;
+            border: var(--pixel-size) solid var(--text-primary);
+            transition: all 0.2s;
             position: relative;
-            overflow: hidden;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transform: translateX(-100%) skewX(-15deg);
-            transition: transform 0.6s ease;
+            text-transform: uppercase;
         }
 
         .cta-button:hover {
-            background: var(--accent-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            transform: translateY(-2px);
         }
 
-        .cta-button:hover::before {
-            transform: translateX(100%) skewX(-15deg);
+        .cta-button:active {
+            transform: translateY(0);
         }
 
         /* Projects Grid */
         .projects-section {
-            margin-top: 48px;
+            margin-top: 32px;
         }
 
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 32px;
-            margin-top: 32px;
+            gap: 24px;
+            margin-top: 24px;
         }
 
         .project-card {
-            background: rgba(26, 26, 26, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 32px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--bg-secondary);
+            padding: 24px;
+            transition: all 0.3s;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            /* New: Circuit board effect */
-            background-image: 
-                linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-                    rgba(59, 130, 246, 0.1) 0%, transparent 50%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        /* New: Data flow animation */
-        .project-card::after {
-            content: '';
-            position: absolute;
-            top: -100%;
-            left: -100%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent, 
-                transparent, 
-                rgba(59, 130, 246, 0.1),
-                rgba(59, 130, 246, 0.2),
-                rgba(59, 130, 246, 0.1),
-                transparent,
-                transparent
-            );
-            transform: rotate(45deg);
-            animation: dataFlow 6s linear infinite;
-            opacity: 0.5;
-        }
-
-        .project-card:hover::before {
-            opacity: 1;
         }
 
         .project-card:hover {
-            border-color: rgba(59, 130, 246, 0.4);
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-        }
-
-        @keyframes dataFlow {
-            0% {
-                transform: translateY(-100%) rotate(45deg);
-            }
-            100% {
-                transform: translateY(100%) rotate(45deg);
-            }
+            transform: translateY(-4px);
+            border-color: var(--accent);
         }
 
         .project-card h3 {
-            font-size: 20px;
-            font-weight: 700;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
             color: var(--text-primary);
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             line-height: 1.3;
+            letter-spacing: 1px;
         }
 
         .project-description {
             color: var(--text-secondary);
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 16px;
         }
 
         .project-tags {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
         .project-tag {
-            padding: 6px 12px;
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 500;
+            padding: 4px 8px;
+            background: var(--bg-tertiary);
+            border: var(--pixel-size) solid var(--border);
+            font-size: 14px;
             color: var(--accent);
+            font-family: 'Roboto Mono', monospace;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
-        /* Experience Section - Updated with animations */
+        /* Experience Section */
         .experience-section {
-            margin-top: 48px;
+            margin-top: 32px;
         }
 
         .experience-grid {
             display: flex;
             flex-direction: column;
-            gap: 24px;
-            margin-top: 32px;
+            gap: 16px;
+            margin-top: 24px;
         }
 
         .experience-item {
-            background: rgba(26, 26, 26, 0.7);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-left: 4px solid var(--accent);
-            border-radius: 16px;
-            padding: 32px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            /* New: Circuit board effect */
-            background-image: 
-                linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-
-        .experience-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: linear-gradient(180deg, var(--accent), #8b5cf6);
-            transform: scaleY(0);
-            transition: transform 0.3s ease;
-        }
-
-        /* New: Data flow animation for experience */
-        .experience-item::after {
-            content: '';
-            position: absolute;
-            top: -100%;
-            left: -100%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent, 
-                transparent, 
-                rgba(59, 130, 246, 0.1),
-                rgba(59, 130, 246, 0.2),
-                rgba(59, 130, 246, 0.1),
-                transparent,
-                transparent
-            );
-            transform: rotate(45deg);
-            animation: dataFlow 6s linear infinite;
-            opacity: 0.5;
+            background: var(--bg-secondary);
+            border-left: calc(var(--pixel-size) * 2) solid var(--accent);
+            padding: 24px;
+            transition: all 0.3s;
         }
 
         .experience-item:hover {
-            border-color: rgba(59, 130, 246, 0.3);
-            transform: translateX(8px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .experience-item:hover::before {
-            transform: scaleY(1);
+            transform: translateX(4px);
+            border-left-color: var(--text-primary);
         }
 
         .experience-title {
-            font-size: 18px;
-            font-weight: 700;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
             color: var(--text-primary);
-            margin-bottom: 12px;
+            margin-bottom: 8px;
+            line-height: 1.3;
+            letter-spacing: 1px;
         }
 
         .experience-description {
             color: var(--text-secondary);
-            font-size: 15px;
-            line-height: 1.6;
+            font-size: 16px;
+            line-height: 1.5;
         }
 
-        /* Certifications - Updated with animations */
+        /* Certifications */
         .certifications {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 32px;
+            gap: 16px;
+            margin-top: 24px;
         }
 
         .cert-pill {
-            padding: 20px;
-            background: rgba(26, 26, 26, 0.7);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 500;
+            padding: 16px;
+            background: var(--bg-secondary);
+            border: var(--pixel-size) solid var(--border);
+            font-size: 16px;
             color: var(--text-secondary);
             text-align: center;
-            transition: all 0.3s ease;
-            line-height: 1.5;
-            position: relative;
-            overflow: hidden;
-            /* New: Circuit board effect */
-            background-image: 
-                linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-
-        /* New: Data flow animation for certificates */
-        .cert-pill::after {
-            content: '';
-            position: absolute;
-            top: -100%;
-            left: -100%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent, 
-                transparent, 
-                rgba(16, 185, 129, 0.1),
-                rgba(16, 185, 129, 0.2),
-                rgba(16, 185, 129, 0.1),
-                transparent,
-                transparent
-            );
-            transform: rotate(45deg);
-            animation: dataFlow 6s linear infinite;
-            opacity: 0.5;
+            transition: all 0.2s;
+            line-height: 1.4;
         }
 
         .cert-pill:hover {
-            border-color: rgba(16, 185, 129, 0.4);
+            border-color: var(--success);
             color: var(--text-primary);
             transform: translateY(-2px);
-        }
-
-        /* Contact pills - Updated with animations */
-        .contact-pill {
-            position: relative;
-            overflow: hidden;
-            /* New: Circuit board effect */
-            background-image: 
-                linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-
-        /* New: Data flow animation for contact */
-        .contact-pill::after {
-            content: '';
-            position: absolute;
-            top: -100%;
-            left: -100%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent, 
-                transparent, 
-                rgba(59, 130, 246, 0.1),
-                rgba(59, 130, 246, 0.2),
-                rgba(59, 130, 246, 0.1),
-                transparent,
-                transparent
-            );
-            transform: rotate(45deg);
-            animation: dataFlow 6s linear infinite;
-            opacity: 0.5;
         }
 
         .footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 48px;
-            padding-top: 32px;
-            border-top: 1px solid var(--border);
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: var(--pixel-size) solid var(--border);
             color: var(--text-muted);
-            font-size: 14px;
+            font-size: 16px;
             flex-wrap: wrap;
             gap: 16px;
         }
 
-        /* Konami code easter egg */
-        .konami-active .main-title {
-            animation: rainbow 2s linear infinite, textShine 4s ease-in-out infinite;
+        /* Pixelated animations */
+        @keyframes pixelGlow {
+            0%, 100% { box-shadow: 0 0 5px var(--accent); }
+            50% { box-shadow: 0 0 20px var(--accent), 0 0 30px var(--accent); }
         }
 
-        @keyframes rainbow {
-            0% {
-                filter: hue-rotate(0deg);
-            }
-
-            100% {
-                filter: hue-rotate(360deg);
-            }
+        .pixel-glow {
+            animation: pixelGlow 2s infinite;
         }
 
-        /* Three.js Neural Network Canvas */
-        #neural-network {
+        /* Pixelated progress bars */
+        .pixel-progress {
+            height: 16px;
+            background: var(--bg-tertiary);
+            border: var(--pixel-size) solid var(--border);
+            margin-top: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pixel-progress-bar {
+            height: 100%;
+            background: var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pixel-progress-bar::after {
+            content: "";
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.5;
+            bottom: 0;
+            right: 0;
+            background-image: linear-gradient(
+                45deg,
+                rgba(255, 255, 255, .2) 25%,
+                transparent 25%,
+                transparent 50%,
+                rgba(255, 255, 255, .2) 50%,
+                rgba(255, 255, 255, .2) 75%,
+                transparent 75%,
+                transparent
+            );
+            background-size: 16px 16px;
+            animation: progressStripes 1s linear infinite;
         }
 
-        /* Responsive Design - Enhanced for mobile */
+        @keyframes progressStripes {
+            0% { background-position: 0 0; }
+            100% { background-position: 16px 16px; }
+        }
+
+        /* Pixel art decorations */
+        .pixel-decoration {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            z-index: 5;
+        }
+
+        .pixel-heart {
+            top: 20px;
+            right: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Responsive Design */
         @media (max-width: 1200px) {
             .container {
                 grid-template-columns: 1fr;
-                gap: 32px;
+                gap: 24px;
             }
 
             .profile-sidebar {
@@ -1069,7 +640,7 @@
 
             .avatar {
                 margin-bottom: 0;
-                margin-right: 20px;
+                margin-right: 16px;
             }
         }
 
@@ -1079,23 +650,22 @@
             }
 
             .hero-section {
-                padding: 24px;
-                border-radius: 20px;
+                padding: 16px;
             }
 
             .projects-grid {
                 grid-template-columns: 1fr;
-                gap: 24px;
+                gap: 16px;
             }
 
             .project-card {
-                padding: 24px;
+                padding: 16px;
             }
 
             .hero-title {
                 flex-direction: column;
                 text-align: center;
-                gap: 16px;
+                gap: 12px;
             }
 
             .stand-name {
@@ -1105,12 +675,11 @@
             .cta-row {
                 flex-direction: column;
                 text-align: center;
-                gap: 16px;
+                gap: 12px;
             }
 
             .profile-sidebar {
-                padding: 24px;
-                border-radius: 20px;
+                padding: 16px;
             }
 
             .avatar-section {
@@ -1120,82 +689,67 @@
 
             .avatar {
                 margin-right: 0;
-                margin-bottom: 16px;
+                margin-bottom: 12px;
             }
 
             .contact-pill span:nth-child(2) {
-                font-size: 13px;
+                font-size: 14px;
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
 
             .section-title {
-                font-size: 18px;
+                font-size: 12px;
             }
 
             .hero-description {
                 font-size: 16px;
             }
 
-            .orb {
+            .main-title {
+                font-size: 18px;
+            }
+            
+            .pixel-character {
                 display: none;
-            }
-            
-            /* Enhanced mobile-specific animations */
-            .project-card::after,
-            .skill::after,
-            .experience-item::after,
-            .cert-pill::after,
-            .contact-pill::after {
-                animation: dataFlowMobile 8s linear infinite;
-            }
-            
-            @keyframes dataFlowMobile {
-                0% {
-                    transform: translateY(-50%) rotate(45deg);
-                }
-                100% {
-                    transform: translateY(150%) rotate(45deg);
-                }
             }
         }
 
         @media (max-width: 480px) {
             .container {
-                gap: 24px;
+                gap: 16px;
             }
             
             .profile-sidebar,
             .hero-section,
             .project-card,
             .experience-item {
-                padding: 20px;
-                border-radius: 16px;
+                padding: 12px;
             }
             
             .contact-pill {
-                padding: 12px 16px;
+                padding: 8px;
             }
             
             .main-title {
-                font-size: 28px;
+                font-size: 16px;
             }
             
             .hero-description {
-                font-size: 15px;
+                font-size: 14px;
             }
             
             .cta-button {
-                padding: 14px 24px;
-                font-size: 15px;
+                padding: 10px 16px;
+                font-size: 10px;
             }
         }
 
         /* Smooth entrance animations */
         .fade-in {
             opacity: 0;
-            transform: translateY(30px);
-            animation: fadeIn 0.8s ease forwards;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s ease forwards;
         }
 
         @keyframes fadeIn {
@@ -1205,127 +759,71 @@
             }
         }
 
-        /* Skill-specific animations */
-        .skill-animation {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: 1000;
-            font-size: 48px;
-            opacity: 0;
-            animation: skillPop 2s ease-out forwards;
-        }
-
-        @keyframes skillPop {
-            0% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.5) rotate(-180deg);
-            }
-
-            50% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1.2) rotate(0deg);
-            }
-
-            100% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.8) rotate(180deg);
-            }
-        }
-
-        /* Programming animation */
-        .programming-animation {
-            font-family: 'JetBrains Mono', monospace;
-            color: #3b82f6;
-            text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-        }
-
-        /* Database animation */
-        .database-animation {
-            color: #10b981;
-            text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
-        }
-
-        /* Backend animation */
-        .backend-animation {
-            color: #8b5cf6;
-            text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
-        }
-
-        /* ML animation */
-        .ml-animation {
-            color: #f59e0b;
-            text-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
-        }
-
-        /* LLM animation */
-        .llm-animation {
-            color: #ef4444;
-            text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
-        }
-
-        /* Cloud animation */
-        .cloud-animation {
-            color: #06b6d4;
-            text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
-        }
-
-        .project-card:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-
-        .project-card:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .project-card:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-
-        .project-card:nth-child(4) {
-            animation-delay: 0.4s;
-        }
-
-        .project-card:nth-child(5) {
-            animation-delay: 0.5s;
-        }
-
-        .project-card:nth-child(6) {
-            animation-delay: 0.6s;
-        }
+        .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3) { animation-delay: 0.3s; }
+        .project-card:nth-child(4) { animation-delay: 0.4s; }
+        .project-card:nth-child(5) { animation-delay: 0.5s; }
+        .project-card:nth-child(6) { animation-delay: 0.6s; }
     </style>
 </head>
 
 <body>
-    <!-- Premium animated background with circuit connections -->
-    <div class="bg-orbs">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-        <div class="orb orb-4"></div>
-        <!-- Circuit connections will be added via JS -->
+    <!-- Pixelated background with stars -->
+    <div class="pixel-bg" id="pixelBg"></div>
+
+    <!-- Pixelated animated characters -->
+    <div class="pixel-character pixel-cat">
+        <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="12" width="4" height="4" fill="#ff9e00"/>
+            <rect x="20" y="12" width="4" height="4" fill="#ff9e00"/>
+            <rect x="12" y="8" width="8" height="4" fill="#ff9e00"/>
+            <rect x="8" y="16" width="16" height="8" fill="#ff9e00"/>
+            <rect x="4" y="20" width="4" height="4" fill="#ff9e00"/>
+            <rect x="24" y="20" width="4" height="4" fill="#ff9e00"/>
+            <rect x="12" y="24" width="8" height="4" fill="#ff9e00"/>
+            <rect x="12" y="16" width="4" height="4" fill="#000"/>
+            <rect x="16" y="16" width="4" height="4" fill="#000"/>
+        </svg>
     </div>
 
-    <!-- Electric pulse background animation -->
-    <div class="electric-pulse">
-        <!-- Pulses will be added via JS -->
+    <div class="pixel-character pixel-robot">
+        <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="4" width="16" height="8" fill="#4cc9f0"/>
+            <rect x="4" y="12" width="24" height="12" fill="#4cc9f0"/>
+            <rect x="12" y="24" width="8" height="8" fill="#4cc9f0"/>
+            <rect x="12" y="8" width="8" height="4" fill="#1a1a2e"/>
+            <rect x="8" y="16" width="4" height="4" fill="#1a1a2e"/>
+            <rect x="20" y="16" width="4" height="4" fill="#1a1a2e"/>
+            <rect x="4" y="8" width="4" height="4" fill="#4cc9f0"/>
+            <rect x="24" y="8" width="4" height="4" fill="#4cc9f0"/>
+        </svg>
     </div>
 
-    <!-- Three.js Neural Network Canvas -->
-    <canvas id="neural-network"></canvas>
+    <div class="pixel-character pixel-rocket">
+        <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect x="12" y="4" width="8" height="12" fill="#ff9e00"/>
+            <rect x="8" y="12" width="16" height="8" fill="#ff9e00"/>
+            <rect x="12" y="20" width="8" height="8" fill="#ff9e00"/>
+            <rect x="4" y="16" width="4" height="4" fill="#ff5400"/>
+            <rect x="24" y="16" width="4" height="4" fill="#ff5400"/>
+            <rect x="12" y="8" width="8" height="4" fill="#1a1a2e"/>
+            <rect x="16" y="24" width="4" height="4" fill="#ff5400"/>
+            <rect x="12" y="28" width="4" height="4" fill="#ff5400"/>
+            <rect x="20" y="28" width="4" height="4" fill="#ff5400"/>
+        </svg>
+    </div>
 
     <div class="container">
         <!-- SIDEBAR -->
-        <aside class="profile-sidebar">
+        <aside class="profile-sidebar pixel-border">
             <div class="avatar-section">
                 <div class="avatar">
                     <img src="me.jpg" alt="Syed Manzar Ali" />
                 </div>
                 <div>
                     <div class="profile-name">Syed Manzar Ali</div>
-                    <div class="profile-subtitle">AI/ML Backend Engineer</div>
+                    <div class="profile-subtitle">AI/ML Engineer</div>
                 </div>
             </div>
 
@@ -1356,12 +854,11 @@
                 <h4 class="section-title">Skills & Expertise</h4>
 
                 <div class="skill-category">
-                    <div class="category-header">� Prograrmming & Databases</div>
+                    <div class="category-header">Programming & Databases</div>
 
                     <div class="skill" data-skill="programming">
                         <div class="skill-name">Core Programming Languages</div>
-                        <div class="skill-description">Python, Java, JavaScript, HTML/CSS, SQL for full-stack
-                            development</div>
+                        <div class="skill-description">Python, Java, JavaScript, HTML/CSS, SQL for full-stack development</div>
                         <div class="skill-tags">
                             <span class="skill-tag">Python</span>
                             <span class="skill-tag">Java</span>
@@ -1372,8 +869,7 @@
 
                     <div class="skill" data-skill="database">
                         <div class="skill-name">Database Systems & ORM</div>
-                        <div class="skill-description">MySQL, MongoDB, ORM frameworks for data persistence and
-                            management</div>
+                        <div class="skill-description">MySQL, MongoDB, ORM frameworks for data persistence and management</div>
                         <div class="skill-tags">
                             <span class="skill-tag">MySQL</span>
                             <span class="skill-tag">NoSQL</span>
@@ -1383,7 +879,7 @@
                 </div>
 
                 <div class="skill-category">
-                    <div class="category-header">⚡ AI/ML & LLM</div>
+                    <div class="category-header">AI/ML & LLM</div>
 
                     <div class="skill">
                         <div class="skill-name">Large Language Models</div>
@@ -1407,7 +903,7 @@
                 </div>
 
                 <div class="skill-category">
-                    <div class="category-header">🚀 Advanced Tech</div>
+                    <div class="category-header">Advanced Tech</div>
 
                     <div class="skill">
                         <div class="skill-name">Model Fine-tuning</div>
@@ -1440,23 +936,21 @@
 
         <!-- MAIN CONTENT -->
         <main class="main-content">
-            <section class="hero-section">
+            <section class="hero-section pixel-border">
                 <div class="hero-title">
-                    <h1 class="main-title">AI/ML Engineer — Backend & LLM Systems</h1>
-                    <center>
-                        <div class="stand-name">I ask what machines can't do, then make them do it.</div>
-                    </center>
+                    <h1 class="main-title">AI/ML Engineer</h1>
+                    <div class="stand-name">I ask what machines can't do, then make them do it.</div>
                 </div>
 
                 <p class="hero-description">
-                    I enjoy solving problems and building things that actually work. I’m curious by nature and like turning ideas into something real and useful. 
-                    For me, it’s less about buzzwords and more about creating things that make a difference,
-                    whether that’s through technology, learning, or just approaching challenges with a fresh perspective.
+                    I enjoy solving problems and building things that actually work. I'm curious by nature and like turning ideas into something real and useful. 
+                    For me, it's less about buzzwords and more about creating things that make a difference,
+                    whether that's through technology, learning, or just approaching challenges with a fresh perspective.
                 </p>
 
                 <div class="cta-row">
-                    <a class="cta-button" href="#projects">View My Projects</a>
-                    <div style="color: var(--text-secondary); font-size: 16px; font-weight: 500;">
+                    <a class="cta-button" href="#projects">View Projects</a>
+                    <div style="color: var(--text-secondary); font-size: 16px;">
                         Open to collaborations • Available for interviews
                     </div>
                 </div>
@@ -1466,7 +960,7 @@
                 <h2 class="section-title">Featured Projects</h2>
 
                 <div class="projects-grid">
-                    <article class="project-card fade-in">
+                    <article class="project-card pixel-border fade-in">
                         <h3>Decision-Support Model — ThreatCure</h3>
                         <p class="project-description">
                             Deployed GPT-OSS-120B false-positive scoring model with Elasticsearch integration.
@@ -1481,7 +975,7 @@
                         </div>
                     </article>
 
-                    <article class="project-card fade-in">
+                    <article class="project-card pixel-border fade-in">
                         <h3>Zero-day Anomaly Detection Framework</h3>
                         <p class="project-description">
                             Multi-view ensemble framework with Kafka streaming for real-time security event processing.
@@ -1496,7 +990,7 @@
                         </div>
                     </article>
 
-                    <article class="project-card fade-in">
+                    <article class="project-card pixel-border fade-in">
                         <h3>LegalEase — AI Legal Advisory Platform</h3>
                         <p class="project-description">
                             Hybrid LLM + RAG pipeline for Pakistani law queries with real lawyer consultancy
@@ -1512,7 +1006,7 @@
                         </div>
                     </article>
 
-                    <article class="project-card fade-in">
+                    <article class="project-card pixel-border fade-in">
                         <h3>DialogSum — FLAN-T5 Fine-tuning</h3>
                         <p class="project-description">
                             Fine-tuned FLAN-T5 on DialogSum using full fine-tuning and PEFT with LoRA and prompt tuning.
@@ -1527,7 +1021,7 @@
                         </div>
                     </article>
 
-                    <article class="project-card fade-in">
+                    <article class="project-card pixel-border fade-in">
                         <h3>Skinly Cure — AI Skin Diagnosis</h3>
                         <p class="project-description">
                             Vision Transformers + Gemini analysis for dermatological evaluation. Enhanced early
@@ -1542,7 +1036,7 @@
                         </div>
                     </article>
 
-                    <article class="project-card fade-in">
+                    <article class="project-card pixel-border fade-in">
                         <h3>Agent-Red — AI Debate Simulator</h3>
                         <p class="project-description">
                             LangGraph + LangChain debate system analyzing polarized Reddit arguments with advanced
@@ -1562,9 +1056,8 @@
             <section class="experience-section">
                 <h2 class="section-title">Professional Experience</h2>
                 <div class="experience-grid">
-                    <div class="experience-item">
-                        <div class="experience-title">ThreatCure Pvt. Ltd. — Backend Developer Specializing in AI/ML
-                        </div>
+                    <div class="experience-item pixel-border">
+                        <div class="experience-title">ThreatCure Pvt. Ltd. — Backend Developer Specializing in AI/ML</div>
                         <div class="experience-description">
                             <strong>July 2025 – Present • Karachi, Pakistan</strong><br>
                             • Trained a regressor on offenses labeled by an open-weight LLM (GPT-OSS-120B) to predict false positives, integrated with Elasticsearch for analyst querying.<br>
@@ -1574,9 +1067,8 @@
                         </div>
                     </div>
 
-                    <div class="experience-item">
-                        <div class="experience-title">University of Karachi - Department of Computer Science (UBIT) —
-                            Teaching Assistant</div>
+                    <div class="experience-item pixel-border">
+                        <div class="experience-title">University of Karachi - Department of Computer Science (UBIT) — Teaching Assistant</div>
                         <div class="experience-description">
                             <strong>February 2025 - June 2025 • Karachi, Pakistan</strong><br>
                             • Conducted tutorials and coding labs to teach Data Structures and Algorithms (DSA) in Java,
@@ -1589,7 +1081,7 @@
                         </div>
                     </div>
 
-                    <div class="experience-item">
+                    <div class="experience-item pixel-border">
                         <div class="experience-title">Pave International — Automation Engineer</div>
                         <div class="experience-description">
                             <strong>December 2024 – January 2025 • Remote</strong><br>
@@ -1607,487 +1099,227 @@
             <section>
                 <h2 class="section-title">Certifications & Achievements</h2>
                 <div class="certifications">
-                    <div class="cert-pill">🧠 Machine Learning in Production<br><strong>DeepLearning.AI</strong></div>
-                    <div class="cert-pill">🔒 Securing LLM & NLP APIs<br><strong>APIsec University</strong></div>
-                    <div class="cert-pill">🚀 5-Day Gen AI Intensive Course with Google<br><strong>Kaggle</strong></div>
-                    <div class="cert-pill">🔗 LangChain for LLM Application Development<br><strong>DeepLearning.AI</strong></div>
-                    <div class="cert-pill">🤖 Generative AI with Large Language Models<br><strong>DeepLearning.AI</strong></div>
-                    <div class="cert-pill">📊 Stanford Machine Learning Specialization<br><strong>Stanford University & DeepLearning.AI</strong></div>
-                    <div class="cert-pill">⚡ Advanced Learning Algorithms<br><strong>Stanford University</strong></div>
-                    <div class="cert-pill">🎯 Unsupervised Learning, Recommenders & Reinforcement Learning<br><strong>Stanford University</strong></div>
-                    <div class="cert-pill">📈 Supervised Machine Learning: Regression & Classification<br><strong>Stanford University</strong></div>
-                    <div class="cert-pill">💻 Full Stack Development<br><strong>Meta</strong></div>
-                    <div class="cert-pill">🔑 APIs<br><strong>Meta</strong></div>
-                    <div class="cert-pill">🌀 Version Control (Git & GitHub)<br><strong>Meta</strong></div>
-                    <div class="cert-pill">🌐 Django Web Framework<br><strong>Meta</strong></div>
-                    <div class="cert-pill">🗄️ Introduction to Databases for Back-End Development<br><strong>Meta</strong></div>
-                    <div class="cert-pill">⚙️ Introduction to Back-End Development<br><strong>Meta</strong></div>
-                    <div class="cert-pill">🐍 Programming in Python<br><strong>Meta</strong></div>
-                    <div class="cert-pill">📜 JavaScript Essentials 1<br><strong>Cisco</strong></div>
+                    <div class="cert-pill pixel-border">🧠 Machine Learning in Production<br><strong>DeepLearning.AI</strong></div>
+                    <div class="cert-pill pixel-border">🔒 Securing LLM & NLP APIs<br><strong>APIsec University</strong></div>
+                    <div class="cert-pill pixel-border">🚀 5-Day Gen AI Intensive Course with Google<br><strong>Kaggle</strong></div>
+                    <div class="cert-pill pixel-border">🔗 LangChain for LLM Application Development<br><strong>DeepLearning.AI</strong></div>
+                    <div class="cert-pill pixel-border">🤖 Generative AI with Large Language Models<br><strong>DeepLearning.AI</strong></div>
+                    <div class="cert-pill pixel-border">📊 Stanford Machine Learning Specialization<br><strong>Stanford University & DeepLearning.AI</strong></div>
+                    <div class="cert-pill pixel-border">⚡ Advanced Learning Algorithms<br><strong>Stanford University</strong></div>
+                    <div class="cert-pill pixel-border">🎯 Unsupervised Learning, Recommenders & Reinforcement Learning<br><strong>Stanford University</strong></div>
+                    <div class="cert-pill pixel-border">📈 Supervised Machine Learning: Regression & Classification<br><strong>Stanford University</strong></div>
+                    <div class="cert-pill pixel-border">💻 Full Stack Development<br><strong>Meta</strong></div>
+                    <div class="cert-pill pixel-border">🔑 APIs<br><strong>Meta</strong></div>
+                    <div class="cert-pill pixel-border">🌀 Version Control (Git & GitHub)<br><strong>Meta</strong></div>
+                    <div class="cert-pill pixel-border">🌐 Django Web Framework<br><strong>Meta</strong></div>
+                    <div class="cert-pill pixel-border">🗄️ Introduction to Databases for Back-End Development<br><strong>Meta</strong></div>
+                    <div class="cert-pill pixel-border">⚙️ Introduction to Back-End Development<br><strong>Meta</strong></div>
+                    <div class="cert-pill pixel-border">🐍 Programming in Python<br><strong>Meta</strong></div>
+                    <div class="cert-pill pixel-border">📜 JavaScript Essentials 1<br><strong>Cisco</strong></div>
                 </div>
             </section>
-            
-
         </main>
     </div>
 
     <script>
-        // Respect reduced motion preference
-        const isReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        // Create Three.js Neural Network Animation
-        function initNeuralNetwork() {
-            if (isReducedMotion) return;
+        // Create pixelated star background
+        function createPixelStars() {
+            const pixelBg = document.getElementById('pixelBg');
+            const starCount = 100;
             
-            const canvas = document.getElementById('neural-network');
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
-            
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            
-            // Create neural nodes
-            const nodes = [];
-            const nodeCount = 15;
-            const nodeGroup = new THREE.Group();
-            
-            for (let i = 0; i < nodeCount; i++) {
-                const geometry = new THREE.SphereGeometry(0.1, 16, 16);
-                const material = new THREE.MeshBasicMaterial({ 
-                    color: new THREE.Color().setHSL(Math.random(), 0.7, 0.5),
-                    transparent: true,
-                    opacity: 0.7
-                });
-                const node = new THREE.Mesh(geometry, material);
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'pixel-star';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 3}s`;
+                star.style.opacity = Math.random() * 0.8 + 0.2;
                 
-                node.position.x = Math.random() * 10 - 5;
-                node.position.y = Math.random() * 10 - 5;
-                node.position.z = Math.random() * 10 - 5;
+                // Vary star sizes
+                const size = Math.random() > 0.8 ? '8px' : '4px';
+                star.style.width = size;
+                star.style.height = size;
                 
-                node.velocity = new THREE.Vector3(
-                    (Math.random() - 0.5) * 0.01,
-                    (Math.random() - 0.5) * 0.01,
-                    (Math.random() - 0.5) * 0.01
-                );
-                
-                nodes.push(node);
-                nodeGroup.add(node);
+                pixelBg.appendChild(star);
             }
-            
-            scene.add(nodeGroup);
-            
-            // Create neural connections
-            const connections = [];
-            const connectionGroup = new THREE.Group();
-            
-            for (let i = 0; i < nodes.length; i++) {
-                for (let j = i + 1; j < nodes.length; j++) {
-                    if (Math.random() > 0.7) { // Only connect some nodes
-                        const geometry = new THREE.BufferGeometry();
-                        const material = new THREE.LineBasicMaterial({ 
-                            color: 0x3b82f6,
-                            transparent: true,
-                            opacity: 0.3
-                        });
-                        
-                        const points = [
-                            new THREE.Vector3(
-                                nodes[i].position.x,
-                                nodes[i].position.y,
-                                nodes[i].position.z
-                            ),
-                            new THREE.Vector3(
-                                nodes[j].position.x,
-                                nodes[j].position.y,
-                                nodes[j].position.z
-                            )
-                        ];
-                        
-                        geometry.setFromPoints(points);
-                        const line = new THREE.Line(geometry, material);
-                        connections.push({
-                            line,
-                            from: i,
-                            to: j
-                        });
-                        connectionGroup.add(line);
-                    }
-                }
-            }
-            
-            scene.add(connectionGroup);
-            
-            camera.position.z = 15;
-            
-            // Animation
-            function animate() {
-                requestAnimationFrame(animate);
-                
-                // Update nodes
-                nodes.forEach(node => {
-                    node.position.add(node.velocity);
-                    
-                    // Bounce off boundaries
-                    if (Math.abs(node.position.x) > 5) node.velocity.x *= -1;
-                    if (Math.abs(node.position.y) > 5) node.velocity.y *= -1;
-                    if (Math.abs(node.position.z) > 5) node.velocity.z *= -1;
-                    
-                    // Gentle pulsing effect
-                    node.scale.x = node.scale.y = node.scale.z = 0.8 + 0.2 * Math.sin(Date.now() * 0.001 + node.position.x);
-                });
-                
-                // Update connections
-                connections.forEach(conn => {
-                    const fromNode = nodes[conn.from];
-                    const toNode = nodes[conn.to];
-                    
-                    const geometry = new THREE.BufferGeometry();
-                    const points = [
-                        new THREE.Vector3(
-                            fromNode.position.x,
-                            fromNode.position.y,
-                            fromNode.position.z
-                        ),
-                        new THREE.Vector3(
-                            toNode.position.x,
-                            toNode.position.y,
-                            toNode.position.z
-                        )
-                    ];
-                    
-                    geometry.setFromPoints(points);
-                    conn.line.geometry.dispose();
-                    conn.line.geometry = geometry;
-                    
-                    // Pulsing connection effect
-                    const distance = fromNode.position.distanceTo(toNode.position);
-                    conn.line.material.opacity = 0.1 + 0.2 * (1 - Math.min(1, distance / 10)) * Math.sin(Date.now() * 0.001);
-                });
-                
-                // Gentle rotation
-                nodeGroup.rotation.x += 0.0005;
-                nodeGroup.rotation.y += 0.001;
-                
-                renderer.render(scene, camera);
-            }
-            
-            animate();
-            
-            // Handle resize
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
         }
 
-        // Create circuit connections between orbs
-        function createCircuitConnections() {
-            if (isReducedMotion) return;
-            
-            const orbs = document.querySelectorAll('.orb');
-            const bgOrbs = document.querySelector('.bg-orbs');
-            
-            // Create connections between orbs
-            for (let i = 0; i < orbs.length; i++) {
-                for (let j = i + 1; j < orbs.length; j++) {
-                    const orb1 = orbs[i];
-                    const orb2 = orbs[j];
+        // Create floating pixel hearts
+        function createPixelHearts() {
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    const heart = document.createElement('div');
+                    heart.className = 'pixel-decoration pixel-heart';
+                    heart.innerHTML = `
+                        <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="12" y="8" width="8" height="8" fill="#ff5400"/>
+                            <rect x="8" y="12" width="16" height="12" fill="#ff5400"/>
+                            <rect x="4" y="16" width="4" height="4" fill="#ff5400"/>
+                            <rect x="24" y="16" width="4" height="4" fill="#ff5400"/>
+                            <rect x="8" y="20" width="4" height="4" fill="#ff5400"/>
+                            <rect x="20" y="20" width="4" height="4" fill="#ff5400"/>
+                            <rect x="12" y="24" width="8" height="4" fill="#ff5400"/>
+                        </svg>
+                    `;
+                    heart.style.left = `${Math.random() * window.innerWidth}px`;
+                    heart.style.top = `${Math.random() * window.innerHeight}px`;
+                    document.body.appendChild(heart);
                     
-                    const rect1 = orb1.getBoundingClientRect();
-                    const rect2 = orb2.getBoundingClientRect();
-                    
-                    const x1 = rect1.left + rect1.width / 2;
-                    const y1 = rect1.top + rect1.height / 2;
-                    const x2 = rect2.left + rect2.width / 2;
-                    const y2 = rect2.top + rect2.height / 2;
-                    
-                    const distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-                    const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
-                    
-                    // Only create connections for nearby orbs
-                    if (distance < 500) {
-                        const connection = document.createElement('div');
-                        connection.className = 'circuit-connection';
-                        connection.style.width = `${distance}px`;
-                        connection.style.left = `${x1}px`;
-                        connection.style.top = `${y1}px`;
-                        connection.style.transform = `rotate(${angle}deg)`;
+                    // Animate floating up
+                    let posY = parseFloat(heart.style.top);
+                    const floatInterval = setInterval(() => {
+                        posY -= 1;
+                        heart.style.top = `${posY}px`;
+                        heart.style.opacity = parseFloat(heart.style.opacity || 1) - 0.01;
                         
-                        // Add animation delay for staggered effect
-                        connection.style.animationDelay = `${Math.random() * 5}s`;
-                        
-                        bgOrbs.appendChild(connection);
-                        
-                        // Add nodes along the connection
-                        const nodeCount = Math.floor(distance / 50);
-                        for (let k = 1; k < nodeCount; k++) {
-                            const nodeX = x1 + (x2 - x1) * (k / nodeCount);
-                            const nodeY = y1 + (y2 - y1) * (k / nodeCount);
-                            
-                            const node = document.createElement('div');
-                            node.className = 'circuit-node';
-                            node.style.left = `${nodeX}px`;
-                            node.style.top = `${nodeY}px`;
-                            node.style.animationDelay = `${Math.random() * 3}s`;
-                            
-                            bgOrbs.appendChild(node);
+                        if (parseFloat(heart.style.opacity) <= 0) {
+                            clearInterval(floatInterval);
+                            heart.remove();
                         }
-                    }
+                    }, 50);
                 }
-            }
-        }
-
-        // Create electric pulse animations
-        function createElectricPulses() {
-            if (isReducedMotion) return;
-            
-            const electricPulse = document.querySelector('.electric-pulse');
-            
-            // Create multiple pulses
-            for (let i = 0; i < 5; i++) {
-                const pulse = document.createElement('div');
-                pulse.className = 'pulse';
-                
-                // Random position
-                const x = Math.random() * window.innerWidth;
-                const y = Math.random() * window.innerHeight;
-                pulse.style.left = `${x}px`;
-                pulse.style.top = `${y}px`;
-                
-                // Random size
-                const size = 50 + Math.random() * 150;
-                pulse.style.width = `${size}px`;
-                pulse.style.height = `${size}px`;
-                
-                // Random delay
-                pulse.style.animationDelay = `${Math.random() * 8}s`;
-                
-                electricPulse.appendChild(pulse);
-            }
-        }
-
-        // Avatar click counter (easter egg)
-        let avatarClicks = 0;
-        function initAvatarEasterEgg() {
-            const avatar = document.querySelector('.avatar');
-            avatar.addEventListener('click', () => {
-                avatarClicks++;
-                avatar.setAttribute('data-clicks', avatarClicks);
-
-                // Special messages
-                if (avatarClicks === 5) {
-                    showToast("🚀 You're persistent!");
-                } else if (avatarClicks === 10) {
-                    showToast("🎯 Halfway to something special...");
-                } else if (avatarClicks === 15) {
-                    showToast("🔥 You found the secret! Check the console 👀");
-                    console.log(`
-╔══════════════════════════════════════╗
-║  🎉 CONGRATULATIONS! 🎉              ║
-║                                      ║
-║  You found the hidden easter egg!   ║
-║  Here's a secret message:           ║
-║                                      ║
-║  "The best ML models are like        ║
-║   good jokes - if you have to        ║
-║   explain them, they're probably     ║
-║   overfitted." 😄                    ║
-║                                      ║
-║  - Manzar (probably)                 ║
-╚══════════════════════════════════════╝
-                    `);
-                }
-            });
-        }
-
-        // Konami code easter egg
-        let konamiCode = [];
-        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
-
-        function initKonamiCode() {
-            document.addEventListener('keydown', (e) => {
-                konamiCode.push(e.code);
-                if (konamiCode.length > konamiSequence.length) {
-                    konamiCode.shift();
-                }
-
-                if (konamiCode.join(',') === konamiSequence.join(',')) {
-                    document.body.classList.add('konami-active');
-                    showToast("🌈 KONAMI CODE ACTIVATED! Rainbow mode ON!");
-                    setTimeout(() => {
-                        document.body.classList.remove('konami-active');
-                        showToast("✨ Back to normal... or are we?");
-                    }, 10000);
-                    konamiCode = [];
-                }
-            });
-        }
-
-        // Toast notification system
-        function showToast(message) {
-            const toast = document.createElement('div');
-            toast.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: rgba(26, 26, 26, 0.95);
-                backdrop-filter: blur(20px);
-                color: white;
-                padding: 16px 20px;
-                border-radius: 12px;
-                border: 1px solid rgba(59, 130, 246, 0.3);
-                z-index: 10000;
-                font-family: 'Inter', sans-serif;
-                font-size: 14px;
-                transform: translateX(100%);
-                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            `;
-            toast.textContent = message;
-            document.body.appendChild(toast);
-
-            setTimeout(() => toast.style.transform = 'translateX(0)', 100);
-            setTimeout(() => {
-                toast.style.transform = 'translateX(100%)';
-                setTimeout(() => toast.remove(), 300);
             }, 3000);
         }
 
-        // Magnetic effect for interactive cards
-        function initMagneticEffect() {
-            const interactiveCards = document.querySelectorAll('.project-card, .skill, .experience-item, .cert-pill, .contact-pill');
+        // Add pixelated hover effects
+        function initPixelEffects() {
+            // Add pixel glow to interactive elements
+            const interactiveElements = document.querySelectorAll('.cta-button, .contact-pill, .skill, .project-card, .experience-item, .cert-pill');
             
-            interactiveCards.forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = ((e.clientX - rect.left) / rect.width) * 100;
-                    const y = ((e.clientY - rect.top) / rect.height) * 100;
-
-                    card.style.setProperty('--mouse-x', x + '%');
-                    card.style.setProperty('--mouse-y', y + '%');
-
-                    // Subtle magnetic pull
-                    const centerX = rect.left + rect.width / 2;
-                    const centerY = rect.top + rect.height / 2;
-                    const deltaX = (e.clientX - centerX) * 0.05;
-                    const deltaY = (e.clientY - centerY) * 0.05;
-
-                    if (card.classList.contains('project-card')) {
-                        card.style.transform = `translateY(-8px) scale(1.02) translate(${deltaX}px, ${deltaY}px)`;
-                    } else if (card.classList.contains('skill')) {
-                        card.style.transform = `translateY(-2px) translate(${deltaX}px, ${deltaY}px)`;
-                    } else if (card.classList.contains('experience-item')) {
-                        card.style.transform = `translateX(8px) translate(${deltaX}px, ${deltaY}px)`;
-                    } else {
-                        card.style.transform = `translateY(-2px) translate(${deltaX}px, ${deltaY}px)`;
-                    }
+            interactiveElements.forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    element.classList.add('pixel-glow');
                 });
-
-                card.addEventListener('mouseleave', () => {
-                    if (card.classList.contains('project-card')) {
-                        card.style.transform = 'translateY(-8px) scale(1.02)';
-                    } else if (card.classList.contains('skill')) {
-                        card.style.transform = 'translateY(-2px)';
-                    } else if (card.classList.contains('experience-item')) {
-                        card.style.transform = 'translateX(8px)';
-                    } else {
-                        card.style.transform = 'translateY(-2px)';
-                    }
+                
+                element.addEventListener('mouseleave', () => {
+                    element.classList.remove('pixel-glow');
                 });
             });
         }
 
-        // Parallax effect for orbs
-        function initParallaxOrbs() {
-            if (isReducedMotion) return;
-
-            document.addEventListener('mousemove', (e) => {
-                const orbs = document.querySelectorAll('.orb');
-                const mouseX = e.clientX / window.innerWidth;
-                const mouseY = e.clientY / window.innerHeight;
-
-                orbs.forEach((orb, index) => {
-                    const speed = (index + 1) * 0.3;
-                    const x = (mouseX - 0.5) * speed * 30;
-                    const y = (mouseY - 0.5) * speed * 30;
-                    orb.style.transform = `translate(${x}px, ${y}px)`;
+        // Add 8-bit sound effects on clicks (using Web Audio API)
+        function initPixelSounds() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            function playSound(frequency, duration) {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.type = 'square';
+                oscillator.frequency.value = frequency;
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + duration);
+            }
+            
+            // Play sound on button clicks
+            document.querySelectorAll('.cta-button, .contact-pill').forEach(element => {
+                element.addEventListener('click', () => {
+                    playSound(440, 0.1);
+                });
+            });
+            
+            // Different sound for project cards
+            document.querySelectorAll('.project-card').forEach(element => {
+                element.addEventListener('click', () => {
+                    playSound(880, 0.1);
                 });
             });
         }
 
-        // Contact pill copy functionality - Updated to not copy for links
-        function initContactPills() {
-            document.querySelectorAll('.contact-pill').forEach(pill => {
-                // Only add copy functionality if it's not a link
-                if (!pill.href) {
-                    pill.addEventListener('click', () => {
-                        const text = pill.textContent.replace(/[📍✉️📱🐙💼]/g, '').trim();
-                        if (navigator.clipboard) {
-                            navigator.clipboard.writeText(text).then(() => {
-                                showToast(`📋 Copied: ${text}`);
-                            }).catch(() => {
-                                console.warn('Clipboard not supported');
-                            });
-                        }
-                    });
+        // Create pixelated loading animation
+        function createPixelLoader() {
+            const loader = document.createElement('div');
+            loader.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: var(--bg-primary);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+                flex-direction: column;
+            `;
+            
+            const loaderText = document.createElement('div');
+            loaderText.style.cssText = `
+                font-family: 'Press Start 2P', cursive;
+                font-size: 16px;
+                color: var(--accent);
+                margin-bottom: 20px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            `;
+            loaderText.textContent = 'Loading...';
+            
+            const loaderPixels = document.createElement('div');
+            loaderPixels.style.cssText = `
+                display: flex;
+                gap: 4px;
+            `;
+            
+            for (let i = 0; i < 5; i++) {
+                const pixel = document.createElement('div');
+                pixel.style.cssText = `
+                    width: 12px;
+                    height: 12px;
+                    background: var(--accent);
+                    animation: pixelPulse 1s infinite ${i * 0.2}s;
+                `;
+                loaderPixels.appendChild(pixel);
+            }
+            
+            loader.appendChild(loaderText);
+            loader.appendChild(loaderPixels);
+            document.body.appendChild(loader);
+            
+            // Add CSS animation for pixels
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes pixelPulse {
+                    0%, 100% { transform: scale(1); opacity: 0.3; }
+                    50% { transform: scale(1.2); opacity: 1; }
                 }
-            });
-        }
-
-        // Skill-specific animations
-        function initSkillAnimations() {
-            const skillAnimations = {
-                'programming': ['{ }', '</>', 'def()', 'console.log()', 'System.out'],
-                'database': ['🗄️', 'SELECT *', 'INSERT', 'MongoDB', 'MySQL'],
-                'backend': ['🚀', 'API', 'Django', 'FastAPI', 'REST'],
-                'tools': ['🔧', 'Git', 'Selenium', 'Postman', 'Debug'],
-                'ml': ['🤖', '∑', 'Neural Net', 'Pandas', 'NumPy'],
-                'llm': ['🧠', 'GPT', 'RAG', 'LangChain', 'Prompt'],
-                'cloud': ['☁️', 'SageMaker', 'MLOps', 'Deploy', 'Scale']
-            };
-
-            document.querySelectorAll('.skill[data-skill]').forEach(skill => {
-                skill.addEventListener('click', () => {
-                    const skillType = skill.getAttribute('data-skill');
-                    const animations = skillAnimations[skillType];
-
-                    if (animations) {
-                        const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
-                        showSkillAnimation(randomAnimation, skillType);
-                    }
-                });
-            });
-        }
-
-        function showSkillAnimation(text, skillType) {
-            const animation = document.createElement('div');
-            animation.className = `skill-animation ${skillType}-animation`;
-            animation.textContent = text;
-            document.body.appendChild(animation);
-
-            setTimeout(() => animation.remove(), 2000);
-        }
-
-        // Initialize on DOM load
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initialize contact pills
-            initContactPills();
-
-            // Initialize easter eggs and effects
-            initAvatarEasterEgg();
-            initKonamiCode();
-            initMagneticEffect();
-            initParallaxOrbs();
-            initSkillAnimations();
-
-            // Create background animations
-            createCircuitConnections();
-            createElectricPulses();
+            `;
+            document.head.appendChild(style);
             
-            // Initialize Three.js neural network
-            initNeuralNetwork();
+            // Remove loader after page loads
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    loader.style.opacity = '0';
+                    loader.style.transition = 'opacity 0.5s';
+                    setTimeout(() => loader.remove(), 500);
+                }, 1000);
+            });
+        }
 
+        // Initialize everything on DOM load
+        document.addEventListener('DOMContentLoaded', () => {
+            createPixelStars();
+            initPixelEffects();
+            createPixelLoader();
+            
+            // Only initialize sounds if user interacts first (to avoid autoplay restrictions)
+            let soundsInitialized = false;
+            document.addEventListener('click', () => {
+                if (!soundsInitialized) {
+                    initPixelSounds();
+                    soundsInitialized = true;
+                }
+            }, { once: true });
+            
+            // Create floating hearts after a delay
+            setTimeout(createPixelHearts, 2000);
+            
             // Smooth scroll for CTA button
             document.querySelector('.cta-button').addEventListener('click', (e) => {
                 e.preventDefault();
@@ -2096,174 +1328,26 @@
                     block: 'start'
                 });
             });
-
-            // Welcome message (subtle easter egg)
-            setTimeout(() => {
-                console.log(`
-👋 Hey there, curious developer!
-
-Welcome to my portfolio. I see you're checking the console...
-That's exactly the kind of curiosity I love to see!
-
-🥚 Easter eggs hidden throughout:
-• Try clicking my avatar multiple times
-• Try the Konami code (↑↑↓↓←→←→BA)
-• Hover around and explore the interactions
-
-Built with love, coffee, and way too many CSS animations.
-- Manzar ✨
-                `);
-            }, 2000);
-        });
-
-        // Update circuit connections on resize
-        window.addEventListener('resize', () => {
-            // Remove existing connections
-            document.querySelectorAll('.circuit-connection, .circuit-node').forEach(el => el.remove());
             
-            // Recreate connections
-            createCircuitConnections();
+            // Console message with pixel art style
+            console.log(`
+████████╗███████╗██████╗ ███╗   ███╗██╗███╗   ██╗████████╗███████╗
+╚══██╔══╝██╔════╝██╔══██╗████╗ ████║██║████╗  ██║╚══██╔══╝██╔════╝
+   ██║   █████╗  ██████╔╝██╔████╔██║██║██╔██╗ ██║   ██║   █████╗  
+   ██║   ██╔══╝  ██╔══██╗██║╚██╔╝██║██║██║╚██╗██║   ██║   ██╔══╝  
+   ██║   ███████╗██║  ██║██║ ╚═╝ ██║██║██║ ╚████║   ██║   ███████╗
+   ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝
+                                                                   
+██████╗ ███████╗████████╗██████╗  ██████╗     ███████╗████████╗
+██╔══██╗██╔════╝╚══██╔══╝██╔══██╗██╔═══██╗    ██╔════╝╚══██╔══╝
+██████╔╝█████╗     ██║   ██████╔╝██║   ██║    ███████╗   ██║   
+██╔══██╗██╔══╝     ██║   ██╔══██╗██║   ██║    ╚════██║   ██║   
+██║  ██║███████╗   ██║   ██║  ██║╚██████╔╝    ███████║   ██║   
+╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝     ╚══════╝   ╚═╝   
+                                                                   
+Welcome to my pixelated portfolio! Try clicking around for 8-bit sounds.
+            `);
         });
-
-        (function(){
-  const interactiveSelector = 'a, button, input[type="button"], input[type="submit"], .magnetic, [data-cursor-hover]';
-  const MODULE_ID = '__custom_circle_cursor_v1';
-  if (window[MODULE_ID]) return; // prevent double init
-  window[MODULE_ID] = true;
-
-  // Simple feature-detect: don't run on touch devices or old browsers
-  const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
-  if (isTouch) return;
-
-  // Inject CSS (scoped and unique class names to avoid collisions)
-  const css = `
-    /* custom cursor styles (unique class names) */
-    .ccs-cursor{position:fixed;top:0;left:0;width:20px;height:20px;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%) scale(1);transition:width .18s ease,height .18s ease,box-shadow .18s ease,transform .18s ease;border:2px solid rgba(56,189,248,.95);z-index:2147483646;display:grid;place-items:center;}
-    .ccs-inner{width:100%;height:100%;border-radius:50%;background:transparent;box-shadow:0 8px 22px rgba(56,189,248,0.10), inset 0 0 14px rgba(56,189,248,0.05);transition:all .18s ease;}
-    .ccs-dot{position:absolute;left:50%;top:50%;width:6px;height:6px;background:rgba(56,189,248,0.98);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 8px 18px rgba(56,189,248,0.12);}
-    .ccs-cursor.ccs-hover{width:64px;height:64px;}
-    .ccs-cursor.ccs-hover .ccs-inner{box-shadow:0 18px 50px rgba(250,204,21,0.14);border-color:rgba(250,204,21,0.95)}
-    .ccs-ripple{position:fixed;border-radius:50%;transform:translate(-50%,-50%) scale(0.12);opacity:0.9;pointer-events:none;z-index:2147483645;border:2px solid rgba(255,255,255,0.06);animation:ccs-ripple 700ms ease-out forwards;}
-    @keyframes ccs-ripple{to{transform:translate(-50%,-50%) scale(6);opacity:0}}
-    /* hide on small screens */
-    @media (max-width:820px){ .ccs-cursor{display:none !important;} }
-  `;
-  const style = document.createElement('style');
-  style.setAttribute('data-ccs','1');
-  style.appendChild(document.createTextNode(css));
-  document.head.appendChild(style);
-
-  // Create cursor DOM
-  const cursor = document.createElement('div');
-  cursor.className = 'ccs-cursor';
-  cursor.setAttribute('aria-hidden','true');
-  cursor.innerHTML = '<span class="ccs-inner"></span><span class="ccs-dot"></span>';
-  document.body.appendChild(cursor);
-
-  // State
-  let mouse = {x: window.innerWidth/2, y: window.innerHeight/2};
-  let pos = {x: mouse.x, y: mouse.y};
-  const lerp = (a,b,n) => (1-n)*a + n*b;
-  let rafId = null;
-  let usingKeyboard = false;
-
-  // Smooth follow loop
-  function loop(){
-    pos.x = lerp(pos.x, mouse.x, 0.18);
-    pos.y = lerp(pos.y, mouse.y, 0.18);
-    cursor.style.transform = `translate(${pos.x}px, ${pos.y}px) translate(-50%,-50%)`;
-    rafId = requestAnimationFrame(loop);
-  }
-  rafId = requestAnimationFrame(loop);
-
-  // Mouse move updates
-  document.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  }, {passive:true});
-
-  // Click ripple
-  document.addEventListener('click', (e) => {
-    const r = document.createElement('div');
-    r.className = 'ccs-ripple';
-    const size = Math.max(40, Math.min(window.innerWidth, window.innerHeight) * 0.06);
-    r.style.width = r.style.height = size + 'px';
-    r.style.left = e.clientX + 'px';
-    r.style.top = e.clientY + 'px';
-    document.body.appendChild(r);
-    r.addEventListener('animationend', ()=> r.remove());
-  });
-
-  // Delegated hover + magnetic behavior
-  let currentHoverEl = null;
-  document.addEventListener('mouseover', (e) => {
-    const el = e.target.closest(interactiveSelector);
-    if(el){
-      currentHoverEl = el;
-      cursor.classList.add('ccs-hover');
-      el.dataset.ccsMagnet = 'on';
-    }
-  });
-
-  document.addEventListener('mouseout', (e) => {
-    const leftEl = e.target.closest(interactiveSelector);
-    if(leftEl){
-      leftEl.dataset.ccsMagnet = 'off';
-      cursor.classList.remove('ccs-hover');
-      leftEl.style.transform = ''; // reset any transform applied
-      currentHoverEl = null;
-    }
-  });
-
-  // Magnetic follow inside interactive element
-  document.addEventListener('mousemove', (e) => {
-    // If there is a hovered interactive element, nudge it
-    if(currentHoverEl && currentHoverEl.dataset.ccsMagnet === 'on'){
-      const rect = currentHoverEl.getBoundingClientRect();
-      const relX = e.clientX - (rect.left + rect.width/2);
-      const relY = e.clientY - (rect.top + rect.height/2);
-      const strength = Math.min(22, Math.max(rect.width, rect.height) * 0.04);
-      const tx = (relX / (rect.width/2)) * strength;
-      const ty = (relY / (rect.height/2)) * strength;
-      currentHoverEl.style.transform = `translate(${tx}px, ${ty}px)`;
-    }
-  }, {passive:true});
-
-  // Keyboard accessibility: show native cursor and hide custom cursor when user tabs in
-  window.addEventListener('keydown', (e) => {
-    if(e.key === 'Tab'){
-      usingKeyboard = true;
-      cursor.style.display = 'none';
-      document.documentElement.style.cursor = 'auto';
-    }
-  });
-
-  window.addEventListener('mousedown', ()=> {
-    // if user uses mouse again, restore custom cursor
-    if(usingKeyboard){
-      usingKeyboard = false;
-      cursor.style.display = '';
-      document.documentElement.style.cursor = '';
-    }
-  });
-
-  // Hide cursor while focusing inputs (to not obscure text caret)
-  document.addEventListener('focusin', (e) => {
-    const tgt = e.target;
-    if(tgt && (tgt.tagName === 'INPUT' || tgt.tagName === 'TEXTAREA' || tgt.isContentEditable)){
-      cursor.style.display = 'none';
-    }
-  });
-  document.addEventListener('focusout', ()=> {
-    if(!usingKeyboard) cursor.style.display = '';
-  });
-
-  // Cleanup on unload (optional)
-  window.addEventListener('unload', ()=> {
-    if(rafId) cancelAnimationFrame(rafId);
-  });
-
-})();
     </script>
 </body>
 

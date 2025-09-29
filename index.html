@@ -9,21 +9,22 @@
         rel="stylesheet">
     <style>
         :root {
-    --bg-deep: #0a0a0a;
-    --bg-secondary: #1a1f1a;
-    --bg-tertiary: #273227;
-    --accent-primary: #00ff7f; /* spring green */
-    --accent-secondary: #33ff99;
-    --accent-tertiary: #66ffb3;
-    --text-primary: #e0ffe0;
-    --text-secondary: #a8d6a8;
-    --text-muted: #6a8b6a;
-    --border-subtle: #2c3a2c;
-    --border-accent: #00ff99;
-    --success: #4caf50;
-    --warning: #bfff00;
-    --glass-overlay: rgba(255, 255, 255, 0.03);
-}
+            --bg-deep: #0a0a0a;
+            --bg-secondary: #1a1f1a;
+            --bg-tertiary: #273227;
+            --accent-primary: #00ff7f;
+            /* spring green */
+            --accent-secondary: #33ff99;
+            --accent-tertiary: #66ffb3;
+            --text-primary: #e0ffe0;
+            --text-secondary: #a8d6a8;
+            --text-muted: #6a8b6a;
+            --border-subtle: #2c3a2c;
+            --border-accent: #00ff99;
+            --success: #4caf50;
+            --warning: #bfff00;
+            --glass-overlay: rgba(255, 255, 255, 0.03);
+        }
 
 
 
@@ -42,7 +43,7 @@
 
         body {
             font-family: 'Roboto Mono', monospace;
-            background: linear-gradient(135deg, var(--bg-deep) 0%, #0f0f0f 100%);
+            background: linear-gradient(135deg, var(--bg-deep) 0%, #0f1f0f 100%);
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
@@ -204,20 +205,20 @@
             transform: scale(1.05);
             box-shadow:
                 0 0 30px var(--accent-primary),
-                0 0 60px rgba(74, 158, 255, 0.5);
+                0 0 60px rgba(0, 255, 127, 0.5);
         }
 
         @keyframes profileGlow {
             0% {
                 box-shadow:
                     0 0 20px var(--accent-primary),
-                    0 0 40px rgba(74, 158, 255, 0.3);
+                    0 0 40px rgba(0, 255, 127, 0.3);
             }
 
             100% {
                 box-shadow:
                     0 0 25px var(--accent-primary),
-                    0 0 50px rgba(74, 158, 255, 0.4);
+                    0 0 50px rgba(0, 255, 127, 0.4);
             }
         }
 
@@ -337,8 +338,8 @@
             transform: translateY(-5px);
             border-color: var(--accent-secondary);
             box-shadow:
-                0 5px 15px rgba(74, 158, 255, 0.4),
-                0 0 10px rgba(74, 158, 255, 0.3);
+                0 5px 15px rgba(0, 255, 127, 0.4),
+                0 0 10px rgba(0, 255, 127, 0.3);
         }
 
         .category-title {
@@ -389,7 +390,7 @@
 
         .project-card:hover {
             border-color: var(--accent-secondary);
-            box-shadow: 0 0 15px rgba(74, 158, 255, 0.4);
+            box-shadow: 0 0 15px rgba(0, 255, 127, 0.4);
             transform: translateY(-5px);
         }
 
@@ -402,7 +403,7 @@
             height: 100%;
             background: linear-gradient(90deg,
                     transparent,
-                    rgba(74, 158, 255, 0.1),
+                    rgba(0, 255, 127, 0.1),
                     transparent);
             transition: left var(--transition-slow);
         }
@@ -498,7 +499,7 @@
 
         .experience-content:hover {
             border-color: var(--accent-secondary);
-            box-shadow: 0 0 10px rgba(74, 158, 255, 0.4);
+            box-shadow: 0 0 10px rgba(0, 255, 127, 0.4);
         }
 
         .experience-title {
@@ -554,8 +555,8 @@
         .certification-card:hover {
             transform: translateY(-5px) rotate(1deg);
             box-shadow:
-                0 10px 20px rgba(74, 158, 255, 0.5),
-                0 0 30px rgba(74, 158, 255, 0.4);
+                0 10px 20px rgba(0, 255, 127, 0.5),
+                0 0 30px rgba(0, 255, 127, 0.4);
         }
 
         /* Contact Section */
@@ -1318,9 +1319,9 @@
         }
 
         vec3 getColor(vec2 uv, float d, float n) {  
-          vec3 fgColor = vec3(0.29, 0.62, 1.0);
-          vec3 fgColor2 = vec3(0.39, 0.71, 0.96);
-          vec3 bgColor = vec3(0.06, 0.06, 0.13);
+          vec3 fgColor = vec3(0.0, 1.0, 0.5);
+          vec3 fgColor2 = vec3(0.2, 0.8, 0.6);
+          vec3 bgColor = vec3(0.04, 0.06, 0.04);
           
           if (d < 0.1 && n < 0.1) {
             float mx = mod(uv.x, 0.04);

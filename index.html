@@ -173,7 +173,7 @@
         }
 
         .line:nth-child(1) {
-            margin-left: -40%;
+            margin-left: -50%;
         }
 
         .line:nth-child(1)::after {
@@ -181,74 +181,82 @@
         }
 
         .line:nth-child(2) {
-            margin-left: -30%;
+            margin-left: -40%;
         }
 
         .line:nth-child(2)::after {
-            animation-delay: 1.2s;
+            animation-delay: 1.5s;
         }
 
         .line:nth-child(3) {
-            margin-left: -20%;
+            margin-left: -30%;
         }
 
         .line:nth-child(3)::after {
-            animation-delay: 2.4s;
+            animation-delay: 1.2s;
         }
 
         .line:nth-child(4) {
-            margin-left: -10%;
+            margin-left: -20%;
         }
 
         .line:nth-child(4)::after {
-            animation-delay: 0.8s;
+            animation-delay: 2.4s;
         }
 
         .line:nth-child(5) {
-            margin-left: 0%;
+            margin-left: -10%;
         }
 
         .line:nth-child(5)::after {
-            animation-delay: 3.5s;
+            animation-delay: 0.8s;
         }
 
         .line:nth-child(6) {
-            margin-left: 10%;
+            margin-left: 0%;
         }
 
         .line:nth-child(6)::after {
-            animation-delay: 1.8s;
+            animation-delay: 3.5s;
         }
 
         .line:nth-child(7) {
-            margin-left: 20%;
+            margin-left: 10%;
         }
 
         .line:nth-child(7)::after {
-            animation-delay: 4s;
+            animation-delay: 1.8s;
         }
 
         .line:nth-child(8) {
-            margin-left: 30%;
+            margin-left: 20%;
         }
 
         .line:nth-child(8)::after {
-            animation-delay: 2.8s;
+            animation-delay: 4s;
         }
 
         .line:nth-child(9) {
-            margin-left: 40%;
+            margin-left: 30%;
         }
 
         .line:nth-child(9)::after {
-            animation-delay: 0.5s;
+            animation-delay: 2.8s;
         }
 
         .line:nth-child(10) {
-            margin-left: 50%;
+            margin-left: 40%;
         }
 
         .line:nth-child(10)::after {
+            animation-delay: 0.5s;
+        }
+
+        .line:nth-child(11) {
+            margin-left: 50%;
+        }
+
+        .line:nth-child(11)::after {
             animation-delay: 3.2s;
         }
 
@@ -512,30 +520,63 @@
             background: rgba(217, 119, 87, 0.1);
         }
 
-        /* --- EXPERIENCE TIMELINE --- */
-        .timeline {
+        /* --- EXPERIENCE TIMELINE (HORIZONTAL SCROLL) --- */
+        .timeline-wrapper {
             position: relative;
-            padding-left: 40px;
-            border-left: 2px solid var(--border-solid);
+            width: 100%;
+            overflow: hidden;
         }
 
+        .timeline-track {
+            display: flex;
+            gap: 30px;
+            padding: 40px 0;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            cursor: grab;
+        }
 
+        .timeline-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .timeline-track:active {
+            cursor: grabbing;
+        }
 
         .timeline-item {
-            margin-bottom: 60px;
+            flex: 0 0 400px;
+            scroll-snap-align: start;
             position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: -25px;
+            left: 0;
+            right: -30px;
+            height: 2px;
+            background: var(--border-solid);
+        }
+
+        .timeline-item:last-child::before {
+            right: 0;
         }
 
         .timeline-dot {
             position: absolute;
-            left: -47px;
-            top: 5px;
+            top: -32px;
+            left: 20px;
             width: 16px;
             height: 16px;
             background: var(--accent-orange);
             border-radius: 50%;
             box-shadow: 0 0 20px var(--accent-orange);
-            border: 2px solid var(--bg-deep);
+            border: 3px solid var(--bg-deep);
+            z-index: 2;
             animation: pulse 2s ease-in-out infinite;
         }
 
@@ -548,17 +589,18 @@
             }
 
             50% {
-                transform: scale(1.1);
+                transform: scale(1.2);
                 box-shadow: 0 0 30px var(--accent-orange);
             }
         }
 
         .exp-card {
-            padding: 40px;
+            padding: 35px;
+            height: 100%;
         }
 
         .exp-role {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--text-main);
             margin-bottom: 5px;
@@ -567,15 +609,15 @@
         .exp-company {
             color: var(--accent-orange);
             font-family: var(--font-headings);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             display: block;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .exp-date {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: var(--text-dim);
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             display: block;
             font-style: italic;
         }
@@ -585,20 +627,47 @@
         }
 
         .exp-list li {
-            margin-bottom: 12px;
-            padding-left: 25px;
+            margin-bottom: 10px;
+            padding-left: 20px;
             position: relative;
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             color: var(--text-dim);
+            line-height: 1.6;
         }
 
         .exp-list li::before {
-            content: '>';
+            content: '→';
             position: absolute;
             left: 0;
             color: var(--accent-orange);
-            font-family: var(--font-headings);
             font-weight: bold;
+        }
+
+        /* Scroll hint */
+        .scroll-hint {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            opacity: 0.7;
+        }
+
+        .scroll-hint i {
+            animation: scrollHint 1.5s ease-in-out infinite;
+        }
+
+        @keyframes scrollHint {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            50% {
+                transform: translateX(5px);
+            }
         }
 
         /* --- PROJECTS --- */
@@ -820,31 +889,21 @@
                 padding: 6px 12px;
             }
 
-            .timeline {
-                padding-left: 20px;
-            }
-
-            .timeline-dot {
-                left: -28px;
-                width: 12px;
-                height: 12px;
-            }
-
             .timeline-item {
-                margin-bottom: 40px;
+                flex: 0 0 300px;
             }
 
             .exp-role {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
 
             .exp-company {
-                font-size: 1rem;
+                font-size: 0.9rem;
             }
 
             .exp-list li {
-                font-size: 0.95rem;
-                padding-left: 20px;
+                font-size: 0.85rem;
+                padding-left: 18px;
             }
 
             .project-title {
@@ -872,6 +931,505 @@
             .particle {
                 width: 2px;
                 height: 2px;
+            }
+
+            .side-nav {
+                display: none;
+            }
+        }
+
+        /* --- SIDE NAVIGATION --- */
+        .side-nav {
+            display: none;
+        }
+
+        /* --- STICKY HEADER NAV --- */
+        .sticky-nav {
+            position: fixed;
+            top: -80px;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-solid);
+            z-index: 9997;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: top 0.4s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .sticky-nav.visible {
+            top: 0;
+        }
+
+        .sticky-nav .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .sticky-nav .nav-link {
+            padding: 10px 18px;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-family: var(--font-body);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .sticky-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 6px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent-orange);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .sticky-nav .nav-link:hover,
+        .sticky-nav .nav-link.active {
+            color: var(--text-main);
+        }
+
+        .sticky-nav .nav-link:hover::after,
+        .sticky-nav .nav-link.active::after {
+            width: 20px;
+        }
+
+        /* --- MAGNETIC BUTTON EFFECT --- */
+        .magnetic {
+            transition: transform 0.3s ease;
+        }
+
+        /* --- SCROLL TO TOP --- */
+        .scroll-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--bg-surface);
+            color: var(--accent-orange);
+            border: 1px solid var(--border-solid);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 9998;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .scroll-top:hover {
+            background: var(--accent-orange);
+            color: #fff;
+            border-color: var(--accent-orange);
+            transform: translateY(-3px);
+        }
+
+        /* --- HERO ENTRANCE --- */
+        .hero-animate {
+            opacity: 0;
+            transform: translateY(25px);
+        }
+
+        .hero-animate.show {
+            animation: fadeUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- SECTION TITLE UNDERLINE --- */
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-orange);
+            transition: width 0.5s ease;
+        }
+
+        .fade-in-element.visible .section-title::after {
+            width: 40px;
+        }
+
+        /* --- ENHANCED CARD HOVER --- */
+        .card {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+            will-change: transform;
+        }
+
+        .card:hover {
+            transform: translateY(-8px) !important;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- SERVICE ICON FLOAT --- */
+        .service-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        /* --- TAG HOVER LIFT --- */
+        .tag {
+            transition: all 0.25s ease;
+        }
+
+        .tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(217, 119, 87, 0.2);
+        }
+
+        /* --- TIMELINE HOVER --- */
+        .timeline-item {
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(5px);
+        }
+
+        .timeline-item:hover .timeline-dot {
+            transform: scale(1.3);
+        }
+
+        /* --- STAT CARD HOVER --- */
+        .stat-card:hover .stat-number {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+
+        /* --- SMOOTH LINK UNDERLINE --- */
+        .highlight {
+            position: relative;
+            background: linear-gradient(to right, var(--accent-orange), var(--accent-orange)) no-repeat;
+            background-size: 0% 2px;
+            background-position: left bottom;
+            transition: background-size 0.3s ease;
+        }
+
+        .highlight:hover {
+            background-size: 100% 2px;
+        }
+
+        /* --- PARALLAX LINES --- */
+        .lines {
+            transition: transform 0.1s ease-out;
+        }
+
+        /* --- PROJECT MODAL --- */
+        .project-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 100000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            padding: 20px;
+        }
+
+        .project-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-solid);
+            border-radius: 8px;
+            max-width: 800px;
+            width: 100%;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .project-modal.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-deep);
+            border: 1px solid var(--border-solid);
+            color: var(--text-main);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            background: var(--accent-orange);
+            border-color: var(--accent-orange);
+            color: #fff;
+        }
+
+        .modal-slideshow {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background: var(--bg-deep);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .slideshow-container {
+            display: flex;
+            height: 100%;
+            transition: transform 0.4s ease;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .slide-placeholder {
+            color: var(--text-dim);
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .slide-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+            color: var(--accent-orange);
+        }
+
+        .slideshow-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-solid);
+            border-radius: 50%;
+            color: var(--text-main);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .slideshow-nav:hover {
+            background: var(--accent-orange);
+            border-color: var(--accent-orange);
+            color: #fff;
+        }
+
+        .slideshow-prev {
+            left: 15px;
+        }
+
+        .slideshow-next {
+            right: 15px;
+        }
+
+        .slideshow-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .slideshow-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-dim);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slideshow-dot.active {
+            background: var(--accent-orange);
+            transform: scale(1.3);
+        }
+
+        .modal-info {
+            padding: 25px;
+        }
+
+        .modal-title {
+            font-size: 1.6rem;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            font-family: var(--font-headings);
+        }
+
+        .modal-subtitle {
+            color: var(--accent-orange);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 15px;
+        }
+
+        .modal-desc {
+            color: var(--text-dim);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .modal-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .modal-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--bg-deep);
+            border: 1px solid var(--border-solid);
+            border-radius: 4px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .modal-link:hover {
+            background: var(--accent-orange);
+            border-color: var(--accent-orange);
+            color: #fff;
+        }
+
+        .modal-link i {
+            font-size: 1rem;
+        }
+
+        /* Project card clickable */
+        .project-card {
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+            .project-modal {
+                padding: 10px;
+            }
+
+            .modal-content {
+                max-height: calc(100vh - 20px);
+            }
+
+            .modal-slideshow {
+                height: 200px;
+            }
+
+            .modal-info {
+                padding: 15px;
+            }
+
+            .modal-title {
+                font-size: 1.2rem;
+            }
+
+            .modal-desc {
+                font-size: 0.9rem;
+            }
+
+            .modal-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .modal-link {
+                justify-content: center;
+                padding: 10px 20px;
+            }
+
+            .slideshow-nav {
+                width: 32px;
+                height: 32px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .sticky-nav .nav-links {
+                gap: 4px;
+            }
+
+            .sticky-nav .nav-link {
+                padding: 8px 12px;
+                font-size: 0.7rem;
+            }
+
+            .cursor-dot,
+            .cursor-ring {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .sticky-nav {
+                display: none;
             }
         }
     </style>
@@ -901,24 +1459,25 @@
         <div class="line"></div>
         <div class="line"></div>
         <div class="line"></div>
+        <div class="line"></div>
     </div>
 
     <div class="container">
 
         <!-- HERO -->
-        <section class="hero">
-            <div class="profile-frame">
+        <section class="hero" id="hero">
+            <div class="profile-frame hero-animate">
                 <img src="me.jpg" alt="Syed Manzar Ali" class="profile-img"
                     onerror="this.src='https://ui-avatars.com/api/?name=Manzar+Ali&background=d97757&color=fff&size=200'">
             </div>
 
-            <h1>SYED MANZAR ALI</h1>
+            <h1 class="hero-animate">SYED MANZAR ALI</h1>
 
-            <div class="typing-container">
+            <div class="typing-container hero-animate">
                 <span id="typing-text"></span><span class="cursor"></span>
             </div>
 
-            <div class="social-dock">
+            <div class="social-dock hero-animate">
                 <a href="https://linkedin.com/in/manzarali-connect" target="_blank" class="social-icon"
                     title="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 <a href="https://github.com/ManzarAli25" target="_blank" class="social-icon" title="GitHub"><i
@@ -1039,59 +1598,70 @@
         <!-- EXPERIENCE -->
         <section id="experience" class="fade-in-element">
             <h2 class="section-title">Experience</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="exp-card card">
-                        <div class="exp-role">Backend Developer Specializing in AI/ML</div>
-                        <span class="exp-company">ThreatCure Pvt. Ltd. | Karachi</span>
-                        <span class="exp-date">July 2025 – Present</span>
-                        <ul class="exp-list">
-                            <li>Developed and deployed a decision-support model for false-positive detection using an
-                                LLM-curated dataset and XGBoost Regressor, achieving <strong>94.6% accuracy</strong> and
-                                0.989 ROC-AUC; integrated with Elasticsearch and Celery for real-time offense scoring
-                                every 60 seconds.</li>
-                            <li>Built a multi-view anomaly detection framework for zero-day threat detection by
-                                ensembling multi-view log anomalies with Elasticsearch for scalable indexing and Kafka
-                                streaming for high-throughput real-time processing.</li>
-                            <li>Implemented RESTful APIs within a SOAR+SIEM architecture to integrate offense closure,
-                                reopen workflows, and cross-platform correlation.</li>
-                        </ul>
+            <div class="scroll-hint"><i class="fas fa-arrow-right"></i> Drag to explore</div>
+            <div class="timeline-wrapper">
+                <div class="timeline-track" id="timelineTrack">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="exp-card card">
+                            <div class="exp-role">Associate Software Engineer</div>
+                            <span class="exp-company">Geeks Of Kolachi | Karachi</span>
+                            <span class="exp-date">January 2026 – Present</span>
+                            <ul class="exp-list">
+                                <li>Building scalable backend systems and APIs for enterprise applications.</li>
+                                <li>Collaborating with cross-functional teams to deliver high-quality software
+                                    solutions.</li>
+                                <li>Contributing to system architecture and code review processes.</li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="exp-card card">
-                        <div class="exp-role">Teaching Assistant</div>
-                        <span class="exp-company">University of Karachi - UBIT | Karachi</span>
-                        <span class="exp-date">February 2025 – June 2025</span>
-                        <ul class="exp-list">
-                            <li>Conducted tutorials and coding labs to teach Data Structures and Algorithms (DSA) in
-                                Java, helping students develop problem-solving skills and algorithmic thinking.</li>
-                            <li>Designed, implemented, and graded programming assignments and exams for over 100+
-                                students, ensuring fair and comprehensive assessment of coding proficiency.</li>
-                            <li>Provided 1:1 mentoring to help students transition from Dart to Java, improving their
-                                understanding of object-oriented programming and advanced DSA concepts such as
-                                recursion, trees, and graph algorithms.</li>
-                        </ul>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="exp-card card">
+                            <div class="exp-role">Backend Developer Specializing in AI/ML</div>
+                            <span class="exp-company">ThreatCure Pvt. Ltd. | Karachi</span>
+                            <span class="exp-date">July 2025 – December 2025</span>
+                            <ul class="exp-list">
+                                <li>Developed and deployed a decision-support model for false-positive detection using
+                                    an LLM-curated dataset and XGBoost Regressor, achieving <strong>94.6%
+                                        accuracy</strong>.</li>
+                                <li>Built a multi-view anomaly detection framework for zero-day threat detection with
+                                    Elasticsearch and Kafka streaming.</li>
+                                <li>Implemented RESTful APIs within a SOAR+SIEM architecture for offense workflows.</li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="exp-card card">
-                        <div class="exp-role">Automation Engineer</div>
-                        <span class="exp-company">Pave International | Remote</span>
-                        <span class="exp-date">December 2024 – January 2025</span>
-                        <ul class="exp-list">
-                            <li>Developed a browser automation system using Python and Selenium, replacing manual data
-                                collection processes and increasing data extraction speed by ~70%.</li>
-                            <li>Automated data workflows to extract and process customer health information, enabling
-                                precise targeting of diabetic patients for marketing segmentation.</li>
-                            <li>Improved operational accuracy and reduced manual effort by ~80%, resulting in more
-                                effective campaign execution.</li>
-                        </ul>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="exp-card card">
+                            <div class="exp-role">Teaching Assistant</div>
+                            <span class="exp-company">University of Karachi - UBIT</span>
+                            <span class="exp-date">February 2025 – June 2025</span>
+                            <ul class="exp-list">
+                                <li>Conducted tutorials and coding labs to teach Data Structures and Algorithms in Java.
+                                </li>
+                                <li>Designed and graded programming assignments for over 100+ students.</li>
+                                <li>Provided 1:1 mentoring on OOP and advanced DSA concepts like recursion, trees, and
+                                    graphs.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="exp-card card">
+                            <div class="exp-role">Automation Engineer</div>
+                            <span class="exp-company">Pave International | Remote</span>
+                            <span class="exp-date">December 2024 – January 2025</span>
+                            <ul class="exp-list">
+                                <li>Developed a browser automation system using Python and Selenium, increasing data
+                                    extraction speed by ~70%.</li>
+                                <li>Automated data workflows to extract and process customer health information.</li>
+                                <li>Improved operational accuracy and reduced manual effort by ~80%.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1101,7 +1671,10 @@
         <section id="projects" class="fade-in-element">
             <h2 class="section-title">Projects</h2>
             <div class="projects-grid">
-                <div class="project-card card">
+                <div class="project-card card" data-project="legalease" data-title="LegalEase"
+                    data-subtitle="AI-First Legal Advisory Platform"
+                    data-desc="Built a hybrid legal advisory platform using LLMs and RAG pipelines to answer queries from Pakistani laws and integrate real lawyer consultancy. Collaborated with Kazi Associates (legal firm), qualified for Stage 3 at FICS (NUST), and presented at ICISCT'25."
+                    data-demo="https://example.com/legalease" data-repo="https://github.com/ManzarAli25/legalease">
                     <div class="project-content">
                         <h3 class="project-title">LegalEase</h3>
                         <div class="project-subtitle">AI-First Legal Advisory Platform</div>
@@ -1119,7 +1692,10 @@
                     </div>
                 </div>
 
-                <div class="project-card card">
+                <div class="project-card card" data-project="skinlycure" data-title="Skinly Cure"
+                    data-subtitle="AI-Powered Skin Diagnosis System"
+                    data-desc="Created a dermatology support tool using Vision Transformers and Gemini-based report analysis for image-driven skin evaluation. Enhanced early detection of dermatological issues and improved affordable healthcare access."
+                    data-demo="https://example.com/skinlycure" data-repo="https://github.com/ManzarAli25/skinlycure">
                     <div class="project-content">
                         <h3 class="project-title">Skinly Cure</h3>
                         <div class="project-subtitle">AI-Powered Skin Diagnosis System</div>
@@ -1135,7 +1711,10 @@
                     </div>
                 </div>
 
-                <div class="project-card card">
+                <div class="project-card card" data-project="agentred" data-title="Agent-Red"
+                    data-subtitle="AI Debate Simulator on Reddit Data"
+                    data-desc="Designed an AI-driven debate simulator using LangGraph, LangChain, and LLM reasoning chains to analyze polarized Reddit arguments. Participated in the Google X Kaggle GenAI Competition 2024."
+                    data-demo="https://example.com/agentred" data-repo="https://github.com/ManzarAli25/agentred">
                     <div class="project-content">
                         <h3 class="project-title">Agent-Red</h3>
                         <div class="project-subtitle">AI Debate Simulator on Reddit Data</div>
@@ -1152,7 +1731,10 @@
                     </div>
                 </div>
 
-                <div class="project-card card">
+                <div class="project-card card" data-project="dialogsum" data-title="DialogSum"
+                    data-subtitle="FLAN-T5 Fine-Tuning for Dialogue Summarization"
+                    data-desc="Fine-tuned FLAN-T5 on DialogSum using full fine-tuning and PEFT using LoRA, and prompt tuning. Evaluated with ROUGE metrics and human baseline comparisons to balance efficiency and accuracy."
+                    data-demo="https://example.com/dialogsum" data-repo="https://github.com/ManzarAli25/dialogsum">
                     <div class="project-content">
                         <h3 class="project-title">DialogSum</h3>
                         <div class="project-subtitle">FLAN-T5 Fine-Tuning for Dialogue Summarization</div>
@@ -1234,8 +1816,64 @@
 
     <!-- FOOTER -->
     <footer>
-        <p>© 2025 Syed Manzar Ali. Built with obsession.</p>
+        <p style="margin-bottom: 15px; font-size: 1.1rem;">You reached the footer. That means you're interested. <a
+                href="mailto:manzar52@hotmail.com"
+                style="color: var(--accent-orange); text-decoration: none; font-weight: 600;">Hire me</a>.</p>
     </footer>
+
+    <!-- STICKY HEADER NAV -->
+    <nav class="sticky-nav" id="stickyNav">
+        <div class="nav-links">
+            <a href="#hero" class="nav-link" data-section="hero">Home</a>
+            <a href="#about" class="nav-link" data-section="about">About</a>
+            <a href="#services" class="nav-link" data-section="services">Expertise</a>
+            <a href="#skills" class="nav-link" data-section="skills">Skills</a>
+            <a href="#experience" class="nav-link" data-section="experience">Work</a>
+            <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+            <a href="#certifications" class="nav-link" data-section="certifications">Certs</a>
+        </div>
+    </nav>
+
+    <!-- SCROLL TO TOP -->
+    <button class="scroll-top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- PROJECT MODAL -->
+    <div class="project-modal" id="projectModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-slideshow">
+                <div class="slideshow-container" id="slideshowContainer">
+                    <!-- Slides will be injected here -->
+                </div>
+                <button class="slideshow-nav slideshow-prev" id="slidePrev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="slideshow-nav slideshow-next" id="slideNext">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="slideshow-dots" id="slideshowDots">
+                    <!-- Dots will be injected here -->
+                </div>
+            </div>
+            <div class="modal-info">
+                <h3 class="modal-title" id="modalTitle"></h3>
+                <div class="modal-subtitle" id="modalSubtitle"></div>
+                <p class="modal-desc" id="modalDesc"></p>
+                <div class="modal-links">
+                    <a href="#" class="modal-link" id="modalDemo" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Live Demo
+                    </a>
+                    <a href="#" class="modal-link" id="modalRepo" target="_blank">
+                        <i class="fab fa-github"></i> View Code
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         // ==================== TYPING EFFECT ====================
@@ -1334,7 +1972,349 @@
         document.addEventListener('DOMContentLoaded', () => {
             type();
             initTheme();
+            initHeroAnimation();
+            initStickyNav();
+            initScrollTop();
+            initMagneticButtons();
+            initTimelineDrag();
+            initProjectModal();
         });
+
+        // ==================== HERO ANIMATION ====================
+        function initHeroAnimation() {
+            const items = document.querySelectorAll('.hero-animate');
+            items.forEach((el, i) => {
+                setTimeout(() => el.classList.add('show'), 150 * i);
+            });
+        }
+
+        // ==================== STICKY NAV ====================
+        function initStickyNav() {
+            const nav = document.getElementById('stickyNav');
+            const links = document.querySelectorAll('.sticky-nav .nav-link');
+            const sections = document.querySelectorAll('section[id]');
+            let lastScroll = 0;
+
+            function updateNav() {
+                const scrollY = window.scrollY;
+
+                // Show/hide nav based on scroll position
+                if (scrollY > 500) {
+                    nav.classList.add('visible');
+                } else {
+                    nav.classList.remove('visible');
+                }
+
+                // Update active link
+                let current = 'hero';
+                sections.forEach(sec => {
+                    if (scrollY >= sec.offsetTop - 200) {
+                        current = sec.id;
+                    }
+                });
+                links.forEach(link => {
+                    link.classList.toggle('active', link.dataset.section === current);
+                });
+
+                lastScroll = scrollY;
+            }
+
+            window.addEventListener('scroll', updateNav);
+            updateNav();
+        }
+
+        // ==================== SCROLL TO TOP ====================
+        function initScrollTop() {
+            const btn = document.getElementById('scrollTop');
+            window.addEventListener('scroll', () => {
+                btn.classList.toggle('visible', window.scrollY > 400);
+            });
+            btn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // ==================== CUSTOM CURSOR ====================
+        // ==================== MAGNETIC BUTTONS ====================
+        function initMagneticButtons() {
+            const magnetics = document.querySelectorAll('.social-icon, .theme-toggle, .scroll-top');
+
+            magnetics.forEach(el => {
+                el.classList.add('magnetic');
+
+                el.addEventListener('mousemove', (e) => {
+                    const rect = el.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+                });
+
+                el.addEventListener('mouseleave', () => {
+                    el.style.transform = 'translate(0, 0)';
+                });
+            });
+        }
+
+        // ==================== TIMELINE DRAG SCROLL ====================
+        function initTimelineDrag() {
+            const track = document.getElementById('timelineTrack');
+            if (!track) return;
+
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            let autoScrollInterval;
+            let userInteracted = false;
+
+            // Auto-scroll functionality
+            function startAutoScroll() {
+                if (userInteracted) return;
+                autoScrollInterval = setInterval(() => {
+                    if (userInteracted) {
+                        clearInterval(autoScrollInterval);
+                        return;
+                    }
+                    const maxScroll = track.scrollWidth - track.clientWidth;
+                    if (track.scrollLeft >= maxScroll) {
+                        track.scrollLeft = 0;
+                    } else {
+                        track.scrollLeft += 1;
+                    }
+                }, 30);
+            }
+
+            // Start auto-scroll after 2 seconds
+            setTimeout(startAutoScroll, 2000);
+
+            // Stop auto-scroll on user interaction
+            function stopAutoScroll() {
+                userInteracted = true;
+                clearInterval(autoScrollInterval);
+            }
+
+            track.addEventListener('mousedown', (e) => {
+                stopAutoScroll();
+                isDown = true;
+                track.style.cursor = 'grabbing';
+                startX = e.pageX - track.offsetLeft;
+                scrollLeft = track.scrollLeft;
+            });
+
+            track.addEventListener('mouseleave', () => {
+                isDown = false;
+                track.style.cursor = 'grab';
+            });
+
+            track.addEventListener('mouseup', () => {
+                isDown = false;
+                track.style.cursor = 'grab';
+            });
+
+            track.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - track.offsetLeft;
+                const walk = (x - startX) * 2;
+                track.scrollLeft = scrollLeft - walk;
+            });
+
+            // Touch support
+            track.addEventListener('touchstart', (e) => {
+                stopAutoScroll();
+                startX = e.touches[0].pageX - track.offsetLeft;
+                scrollLeft = track.scrollLeft;
+            });
+
+            track.addEventListener('touchmove', (e) => {
+                const x = e.touches[0].pageX - track.offsetLeft;
+                const walk = (x - startX) * 2;
+                track.scrollLeft = scrollLeft - walk;
+            });
+
+            // Stop on scroll wheel
+            track.addEventListener('wheel', stopAutoScroll);
+        }
+
+        // ==================== PROJECT MODAL ====================
+        function initProjectModal() {
+            const modal = document.getElementById('projectModal');
+            const modalClose = document.getElementById('modalClose');
+            const projectCards = document.querySelectorAll('.project-card');
+            const slideshowContainer = document.getElementById('slideshowContainer');
+            const slideshowDots = document.getElementById('slideshowDots');
+            const prevBtn = document.getElementById('slidePrev');
+            const nextBtn = document.getElementById('slideNext');
+
+            let currentSlide = 0;
+            let totalSlides = 0;
+            let autoSlideInterval = null;
+
+            // Project screenshots config (placeholder - update paths when you add images)
+            const projectScreenshots = {
+                legalease: [
+                    { src: 'projects_screenshots/legalease/1.png', alt: 'LegalEase Screenshot 1' },
+                    { src: 'projects_screenshots/legalease/2.png', alt: 'LegalEase Screenshot 2' },
+                    { src: 'projects_screenshots/legalease/3.png', alt: 'LegalEase Screenshot 3' }
+                ],
+                skinlycure: [
+                    { src: 'projects_screenshots/skinlycure/1.png', alt: 'Skinly Cure Screenshot 1' },
+                    { src: 'projects_screenshots/skinlycure/2.png', alt: 'Skinly Cure Screenshot 2' }
+                ],
+                agentred: [
+                    { src: 'projects_screenshots/agentred/1.png', alt: 'Agent-Red Screenshot 1' },
+                    { src: 'projects_screenshots/agentred/2.png', alt: 'Agent-Red Screenshot 2' }
+                ],
+                dialogsum: [
+                    { src: 'projects_screenshots/dialogsum/1.png', alt: 'DialogSum Screenshot 1' },
+                    { src: 'projects_screenshots/dialogsum/2.png', alt: 'DialogSum Screenshot 2' }
+                ]
+            };
+
+            // Open modal
+            projectCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const project = card.dataset.project;
+                    const title = card.dataset.title;
+                    const subtitle = card.dataset.subtitle;
+                    const desc = card.dataset.desc;
+                    const demo = card.dataset.demo;
+                    const repo = card.dataset.repo;
+
+                    // Set modal content
+                    document.getElementById('modalTitle').textContent = title;
+                    document.getElementById('modalSubtitle').textContent = subtitle;
+                    document.getElementById('modalDesc').textContent = desc;
+                    document.getElementById('modalDemo').href = demo;
+                    document.getElementById('modalRepo').href = repo;
+
+                    // Build slideshow
+                    const screenshots = projectScreenshots[project] || [];
+                    buildSlideshow(screenshots);
+
+                    // Show modal
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            // Build slideshow
+            function buildSlideshow(screenshots) {
+                currentSlide = 0;
+                stopAutoSlide();
+
+                if (screenshots.length === 0) {
+                    // Placeholder when no screenshots
+                    slideshowContainer.innerHTML = `
+                        <div class="slide">
+                            <div class="slide-placeholder">
+                                <i class="fas fa-images"></i>
+                                Screenshots coming soon
+                            </div>
+                        </div>
+                    `;
+                    slideshowDots.innerHTML = '';
+                    totalSlides = 1;
+                    prevBtn.style.display = 'none';
+                    nextBtn.style.display = 'none';
+                    return;
+                }
+
+                totalSlides = screenshots.length;
+                prevBtn.style.display = totalSlides > 1 ? 'flex' : 'none';
+                nextBtn.style.display = totalSlides > 1 ? 'flex' : 'none';
+
+                // Build slides
+                slideshowContainer.innerHTML = screenshots.map(ss => `
+                    <div class="slide">
+                        <img src="${ss.src}" alt="${ss.alt}" onerror="this.parentElement.innerHTML='<div class=\\'slide-placeholder\\'><i class=\\'fas fa-image\\'></i>Image not found</div>'">
+                    </div>
+                `).join('');
+
+                // Build dots
+                slideshowDots.innerHTML = screenshots.map((_, i) => `
+                    <div class="slideshow-dot ${i === 0 ? 'active' : ''}" data-slide="${i}"></div>
+                `).join('');
+
+                // Dot click handlers
+                slideshowDots.querySelectorAll('.slideshow-dot').forEach(dot => {
+                    dot.addEventListener('click', () => {
+                        goToSlide(parseInt(dot.dataset.slide));
+                    });
+                });
+
+                updateSlideshow();
+
+                // Start auto-slide if more than 1 slide
+                if (totalSlides > 1) {
+                    startAutoSlide();
+                }
+            }
+
+            // Auto-slide functions
+            function startAutoSlide() {
+                stopAutoSlide();
+                autoSlideInterval = setInterval(() => {
+                    goToSlide(currentSlide + 1);
+                }, 4000);
+            }
+
+            function stopAutoSlide() {
+                if (autoSlideInterval) {
+                    clearInterval(autoSlideInterval);
+                    autoSlideInterval = null;
+                }
+            }
+
+            // Navigation
+            function goToSlide(index) {
+                currentSlide = index;
+                if (currentSlide < 0) currentSlide = totalSlides - 1;
+                if (currentSlide >= totalSlides) currentSlide = 0;
+                updateSlideshow();
+            }
+
+            function updateSlideshow() {
+                slideshowContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+                slideshowDots.querySelectorAll('.slideshow-dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentSlide);
+                });
+            }
+
+            // Manual navigation resets auto-slide timer
+            prevBtn.addEventListener('click', () => {
+                goToSlide(currentSlide - 1);
+                if (totalSlides > 1) startAutoSlide();
+            });
+            nextBtn.addEventListener('click', () => {
+                goToSlide(currentSlide + 1);
+                if (totalSlides > 1) startAutoSlide();
+            });
+
+            // Close modal
+            modalClose.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeModal();
+                if (modal.classList.contains('active')) {
+                    if (e.key === 'ArrowLeft') {
+                        goToSlide(currentSlide - 1);
+                        if (totalSlides > 1) startAutoSlide();
+                    }
+                    if (e.key === 'ArrowRight') {
+                        goToSlide(currentSlide + 1);
+                        if (totalSlides > 1) startAutoSlide();
+                    }
+                }
+            });
+
+            function closeModal() {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+                stopAutoSlide();
+            }
+        }
     </script>
 
 </body>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Syed Manzar Ali | AI Engineer</title>
+    <title>Syed Manzar Ali | Software Engineer</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -670,20 +670,40 @@
             }
         }
 
-        /* --- PROJECTS --- */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+        /* --- PROJECTS (HORIZONTAL SCROLL) --- */
+        .projects-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .projects-track {
+            display: flex;
+            gap: 30px;
+            padding: 20px 0;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            cursor: grab;
+        }
+
+        .projects-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .projects-track:active {
+            cursor: grabbing;
         }
 
         .project-card {
-            padding: 45px;
+            flex: 0 0 380px;
+            scroll-snap-align: start;
+            padding: 35px;
             position: relative;
             text-decoration: none;
             display: flex;
             color: inherit;
-            height: 100%;
             flex-direction: column;
         }
 
@@ -713,7 +733,7 @@
         }
 
         .project-title {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: var(--text-main);
             margin-bottom: 8px;
             font-family: var(--font-headings);
@@ -721,23 +741,23 @@
 
         .project-subtitle {
             color: var(--accent-orange);
-            font-size: 0.95rem;
-            margin-bottom: 25px;
+            font-size: 0.8rem;
+            margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             font-weight: 700;
         }
 
         .project-desc {
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             color: var(--text-dim);
-            margin-bottom: 30px;
-            line-height: 1.7;
+            margin-bottom: 25px;
+            line-height: 1.6;
         }
 
         .project-tech {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
             margin-top: auto;
         }
@@ -872,10 +892,13 @@
 
             .services-grid,
             .skills-grid,
-            .projects-grid,
             .edu-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
+            }
+
+            .project-card {
+                flex: 0 0 300px;
             }
 
             .service-card,
@@ -1506,14 +1529,11 @@
         <section id="about" class="fade-in-element">
             <h2 class="section-title">About Me</h2>
             <div class="about-content">
-                <div class="about-text card" style="padding: 40px; border: none; background: rgba(255,255,255,0.02);">
-                    <p>I am a <span class="highlight">Software Engineer specializing in AI/ML</span>, designing scalable
-                        AI and ML solutions based in Karachi. I have worked on <span class="highlight">AI-first SaaS and
-                            enterprise solutions</span>, bridging the gap between robust backend architecture and
-                        intelligent systems.</p>
-                    <p>My passion lies in Large Language Models (LLMs), RAG pipelines, and autonomous agents—creating
-                        software that doesn't just function, but <span class="highlight">reasons</span>.</p>
-                </div>
+               <div class="about-text card" style="padding: 40px; border: none; background: rgba(255,255,255,0.02);">
+    <p>I am a <span class="highlight">Software Engineer specializing in AI/ML</span>, based in Karachi, building AI-first SaaS and enterprise systems that try to act smart while I quietly handle the messy backend logic that actually makes them work.</p>
+    <p>Most of my focus is on <span class="highlight">Large Language Models (LLMs), RAG pipelines, and autonomous agents</span>—teaching software not just to function, but to <span class="highlight">reason</span>, plan, and sometimes question its own choices. I enjoy bridging the gap between robust engineering and intelligent behavior, experimenting with systems that can surprise even their creators, and generally making machines slightly less clueless than humans.</p>
+</div>
+
 
                 <div class="about-stats">
                     <div class="stat-card card">
@@ -1541,24 +1561,21 @@
             <h2 class="section-title">Expertise</h2>
             <div class="services-grid">
                 <div class="service-card card">
-                    <div class="service-icon"><i class="fas fa-brain"></i></div>
-                    <h3>AI & LLM Solutions</h3>
-                    <p>Building intelligent agents using LangChain & LangGraph. Implementing RAG pipelines for
-                        context-aware AI, fine-tuning LLMs (PEFT/LoRA), and deploying models with HuggingFace &
-                        Sagemaker.</p>
-                </div>
-                <div class="service-card card">
-                    <div class="service-icon"><i class="fas fa-server"></i></div>
-                    <h3>Backend Engineering</h3>
-                    <p>Architecting robust APIs with Django (DRF) and FastAPI. Designing microservices, managing
-                        databases (SQL/NoSQL), and ensuring high availability with Docker & Kubernetes.</p>
-                </div>
-                <div class="service-card card">
-                    <div class="service-icon"><i class="fas fa-bolt"></i></div>
-                    <h3>Data & Automation</h3>
-                    <p>Creating high-throughput data pipelines with Kafka & Celery. Automating complex workflows using
-                        Python & Selenium, and implementing real-time search with Elasticsearch.</p>
-                </div>
+    <div class="service-icon"><i class="fas fa-brain"></i></div>
+    <h3>AI & LLM Solutions</h3>
+    <p>Building agents that think and reason, implementing context-aware AI, fine-tuning models, and deploying intelligent systems—mostly to see if they can surprise me before I surprise them.</p>
+</div>
+<div class="service-card card">
+    <div class="service-icon"><i class="fas fa-server"></i></div>
+    <h3>Backend Engineering</h3>
+    <p>Designing robust APIs and scalable architectures, managing complex systems, and ensuring high availability—while quietly wondering if the servers will ever cooperate.</p>
+</div>
+<div class="service-card card">
+    <div class="service-icon"><i class="fas fa-bolt"></i></div>
+    <h3>Data & Automation</h3>
+    <p>Creating high-throughput data pipelines, automating complex workflows, and implementing real-time processing—because someone has to keep the chaos manageable.</p>
+</div>
+
             </div>
         </section>
 
@@ -1685,83 +1702,131 @@
         <!-- PROJECTS -->
         <section id="projects" class="fade-in-element">
             <h2 class="section-title">Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card card" data-project="legalease" data-title="LegalEase"
-                    data-subtitle="AI-First Legal Advisory Platform"
-                    data-desc="Built a hybrid legal advisory platform using LLMs and RAG pipelines to answer queries from Pakistani laws and integrate real lawyer consultancy. Collaborated with Kazi Associates (legal firm), qualified for Stage 3 at FICS (NUST), and presented at ICISCT'25."
-                    data-demo="https://example.com/legalease" data-repo="https://github.com/ManzarAli25/legalease">
-                    <div class="project-content">
-                        <h3 class="project-title">LegalEase</h3>
-                        <div class="project-subtitle">AI-First Legal Advisory Platform</div>
-                        <p class="project-desc">Built a hybrid legal advisory platform using LLMs and RAG pipelines to
-                            answer queries from Pakistani laws and integrate real lawyer consultancy. Collaborated with
-                            Kazi Associates (legal firm), qualified for Stage 3 at FICS (NUST), and presented at
-                            ICISCT'25.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tag">LangChain</span>
-                            <span class="tag">RAG</span>
-                            <span class="tag">LLMs</span>
-                            <span class="tag">Vector DBs</span>
+            <div class="scroll-hint"><i class="fas fa-arrow-right"></i> Drag to explore</div>
+            <div class="projects-wrapper">
+                <div class="projects-track" id="projectsTrack">
+                    <!-- 1. LegalEase - Most impressive (FICS, ICISCT, real client) -->
+                    <div class="project-card card" data-project="legalease" data-title="LegalEase"
+                        data-subtitle="AI-First Legal Advisory Platform"
+                        data-desc="Built a hybrid legal advisory platform using LLMs and RAG pipelines to answer queries from Pakistani laws and integrate real lawyer consultancy. Collaborated with Kazi Associates (legal firm), qualified for Stage 3 at FICS (NUST), and presented at ICISCT'25."
+                        data-demo="https://example.com/legalease" data-repo="https://github.com/ManzarAli25/legalease">
+                        <div class="project-content">
+                            <h3 class="project-title">LegalEase</h3>
+                            <div class="project-subtitle">AI-First Legal Advisory Platform</div>
+                            <p class="project-desc">
+    Legal information in Pakistan is fragmented, inaccessible, and expensive for non-lawyers. I built an AI-first legal advisory platform that answers law-specific queries and escalates complex cases to real lawyers. Worked with Kazi Associates, qualified for Stage 3 at FICS (NUST), and presented the work at ICISCT’25.
+</p>
+
+                            <div class="project-tech">
+                                <span class="tag">LangChain</span>
+                                <span class="tag">RAG</span>
+                                <span class="tag">LLMs</span>
+                                <span class="tag">Vector DBs</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="project-card card" data-project="skinlycure" data-title="Skinly Cure"
-                    data-subtitle="AI-Powered Skin Diagnosis System"
-                    data-desc="Created a dermatology support tool using Vision Transformers and Gemini-based report analysis for image-driven skin evaluation. Enhanced early detection of dermatological issues and improved affordable healthcare access."
-                    data-demo="https://example.com/skinlycure" data-repo="https://github.com/ManzarAli25/skinlycure">
-                    <div class="project-content">
-                        <h3 class="project-title">Skinly Cure</h3>
-                        <div class="project-subtitle">AI-Powered Skin Diagnosis System</div>
-                        <p class="project-desc">Created a dermatology support tool using Vision Transformers and
-                            Gemini-based report analysis for image-driven skin evaluation. Enhanced early detection of
-                            dermatological issues and improved affordable healthcare access.</p>
-                        <div class="project-tech">
-                            <span class="tag">Vision Transformers</span>
-                            <span class="tag">Gemini</span>
-                            <span class="tag">Computer Vision</span>
-                            <span class="tag">Healthcare AI</span>
+                    <!-- 2. CyberProof - Enterprise security AI -->
+                    <div class="project-card card" data-project="cyberproof" data-title="CyberProof Breach Monitor"
+                        data-subtitle="AI-Based Security Resolution System"
+                        data-desc="Developed an intelligent breach monitoring system that detects security incidents and suggests AI-powered resolution strategies. Integrated with SIEM platforms for real-time threat analysis and automated incident response recommendations."
+                        data-demo="https://example.com/cyberproof"
+                        data-repo="https://github.com/ManzarAli25/cyberproof">
+                        <div class="project-content">
+                            <h3 class="project-title">CyberProof Breach Monitor</h3>
+                            <div class="project-subtitle">AI-Based Security Resolution System</div>
+                            <p class="project-desc">Intelligent breach monitoring system that detects security incidents
+                                and suggests AI-powered resolution strategies. Integrated with SIEM platforms for
+                                real-time threat analysis.</p>
+                            <div class="project-tech">
+                                <span class="tag">Python</span>
+                                <span class="tag">LLMs</span>
+                                <span class="tag">Enzoic</span>
+                                <span class="tag">Cyber Security</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="project-card card" data-project="agentred" data-title="Agent-Red"
-                    data-subtitle="AI Debate Simulator on Reddit Data"
-                    data-desc="Designed an AI-driven debate simulator using LangGraph, LangChain, and LLM reasoning chains to analyze polarized Reddit arguments. Participated in the Google X Kaggle GenAI Competition 2024."
-                    data-demo="https://example.com/agentred" data-repo="https://github.com/ManzarAli25/agentred">
-                    <div class="project-content">
-                        <h3 class="project-title">Agent-Red</h3>
-                        <div class="project-subtitle">AI Debate Simulator on Reddit Data</div>
-                        <p class="project-desc">Designed an AI-driven debate simulator using LangGraph, LangChain, and
-                            LLM reasoning chains to analyze polarized Reddit arguments. Participated in the Google X
-                            Kaggle GenAI Competition 2024.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tag">LangGraph</span>
-                            <span class="tag">LangChain</span>
-                            <span class="tag">LLMs</span>
-                            <span class="tag">Reddit API</span>
+                    <!-- 3. TRNSIT Kolachi - Unique local impact -->
+                    <div class="project-card card" data-project="trnsitkolachi" data-title="TRNSIT Kolachi"
+                        data-subtitle="Karachi Public Transport Navigator"
+                        data-desc="Mobile application that guides users on how to navigate through Karachi using public transport. Features route planning, real-time bus tracking, fare estimation, and multi-modal journey suggestions for buses, rickshaws, and local transport."
+                        data-demo="https://example.com/trnsitkolachi"
+                        data-repo="https://github.com/ManzarAli25/trnsitkolachi">
+                        <div class="project-content">
+                            <h3 class="project-title">TRNSIT Kolachi</h3>
+                            <div class="project-subtitle">Karachi Public Transport Navigator</div>
+                            <p class="project-desc">
+    Navigating Karachi’s public transport is opaque, fragmented, and undocumented. I built a mobile app that guides users across buses, EV routes, and informal transport, providing route planning, fare estimation, and multi-modal journey suggestions tailored to local realities.
+</p>
+
+                            <div class="project-tech">
+                                <span class="tag">React Native</span>
+                                <span class="tag">Valhalla routing engine</span>
+            
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="project-card card" data-project="dialogsum" data-title="DialogSum"
-                    data-subtitle="FLAN-T5 Fine-Tuning for Dialogue Summarization"
-                    data-desc="Fine-tuned FLAN-T5 on DialogSum using full fine-tuning and PEFT using LoRA, and prompt tuning. Evaluated with ROUGE metrics and human baseline comparisons to balance efficiency and accuracy."
-                    data-demo="https://example.com/dialogsum" data-repo="https://github.com/ManzarAli25/dialogsum">
-                    <div class="project-content">
-                        <h3 class="project-title">DialogSum</h3>
-                        <div class="project-subtitle">FLAN-T5 Fine-Tuning for Dialogue Summarization</div>
-                        <p class="project-desc">Fine-tuned FLAN-T5 on DialogSum using full fine-tuning and PEFT using
-                            LoRA, and prompt tuning. Evaluated with ROUGE metrics and human baseline comparisons to
-                            balance efficiency and accuracy.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tag">FLAN-T5</span>
-                            <span class="tag">LoRA</span>
-                            <span class="tag">PEFT</span>
-                            <span class="tag">HuggingFace</span>
+                    <!-- 4. Skinly Cure - Healthcare AI -->
+                    <div class="project-card card" data-project="skinlycure" data-title="Skinly Cure"
+                        data-subtitle="AI-Powered Skin Diagnosis System"
+                        data-desc="Created a dermatology support tool using Vision Transformers and Gemini-based report analysis for image-driven skin evaluation. Enhanced early detection of dermatological issues and improved affordable healthcare access."
+                        data-demo="https://example.com/skinlycure"
+                        data-repo="https://github.com/ManzarAli25/skinlycure">
+                        <div class="project-content">
+                            <h3 class="project-title">Skinly Cure</h3>
+                            <div class="project-subtitle">AI-Powered Skin Diagnosis System</div>
+                            <p class="project-desc">
+    Early dermatological diagnosis is expensive and inaccessible for many. I built an AI-assisted skin evaluation system that analyzes images and reports to support early detection, aiming to reduce diagnosis delay and improve access to affordable care.
+</p>
+
+                            <div class="project-tech">
+                                <span class="tag">Vision Transformers</span>
+                                <span class="tag">Gemini</span>
+                                <span class="tag">Computer Vision</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. Agent-Red - Competition project -->
+                    <div class="project-card card" data-project="agentred" data-title="Agent-Red"
+                        data-subtitle="AI Debate Simulator on Reddit Data"
+                        data-desc="Designed an AI-driven debate simulator using LangGraph, LangChain, and LLM reasoning chains to analyze polarized Reddit arguments. Participated in the Google X Kaggle GenAI Competition 2024."
+                        data-demo="https://example.com/agentred" data-repo="https://github.com/ManzarAli25/agentred">
+                        <div class="project-content">
+                            <h3 class="project-title">Agent-Red</h3>
+                            <div class="project-subtitle">AI Debate Simulator on Reddit Data</div>
+                            <p class="project-desc">
+    Online discourse is polarized but poorly analyzed at scale. I built an AI-driven debate simulator that models opposing arguments, tracks reasoning paths, and analyzes polarization patterns. Developed for the Google X Kaggle GenAI Competition 2024.
+</p>
+
+                            <div class="project-tech">
+                                <span class="tag">LangGraph</span>
+                                <span class="tag">LangChain</span>
+                                <span class="tag">LLMs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. DialogSum - Research/ML project -->
+                    <div class="project-card card" data-project="dialogsum" data-title="DialogSum"
+                        data-subtitle="FLAN-T5 Fine-Tuning for Dialogue Summarization"
+                        data-desc="Fine-tuned FLAN-T5 on DialogSum using full fine-tuning and PEFT using LoRA, and prompt tuning. Evaluated with ROUGE metrics and human baseline comparisons to balance efficiency and accuracy."
+                        data-demo="https://example.com/dialogsum" data-repo="https://github.com/ManzarAli25/dialogsum">
+                        <div class="project-content">
+                            <h3 class="project-title">DialogSum</h3>
+                            <div class="project-subtitle">FLAN-T5 Fine-Tuning for Dialogue Summarization</div>
+                            <p class="project-desc">
+    Dialogue summarization models trade accuracy for efficiency without clear benchmarks. I experimented with multiple fine-tuning strategies on a dialogue summarization task, comparing performance, efficiency, and human baselines to understand real-world trade-offs.
+Evaluated with ROUGE metrics and human baseline comparisons.</p>
+   
+                            <div class="project-tech">
+                                <span class="tag">FLAN-T5</span>
+                                <span class="tag">LoRA</span>
+                                <span class="tag">PEFT</span>
+                                <span class="tag">HuggingFace</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1778,10 +1843,26 @@
                     <p style="color: var(--text-main); font-weight: 500; margin-bottom: 8px;">Sir Syed University of
                         Engineering & Technology</p>
                     <p style="color: var(--text-dim); font-size: 0.95rem;">October 2021 – July 2025 | CGPA: 3.58/4.0</p>
-                    <p style="margin-top: 20px; color: var(--text-dim); line-height: 1.7;">Specialized in AI/ML, Backend
-                        Development, and Distributed Systems. Conducted research on LLM fine-tuning and autonomous
-                        agents.</p>
+                    <p style="margin-top: 20px; color: var(--text-dim); line-height: 1.7;">A structured experiment in learning under constraints: unclear requirements, tight deadlines, and teammates with different definitions of “done.” Outcomes included technical competence, social survival skills, and an unhealthy tolerance for last-minute submissions.</p>
                 </div>
+                <div class="edu-card card">
+    <h3 style="color: var(--accent-orange); margin-bottom: 10px;">Higher Secondary Certificate (Pre-Engineering)</h3>
+    <p style="color: var(--text-main); font-weight: 500; margin-bottom: 8px;">Government College For Men, Nazimabad</p>
+    <p style="color: var(--text-dim); font-size: 0.95rem;">2019 – 2021</p>
+    <p style="margin-top: 20px; color: var(--text-dim); line-height: 1.7;">
+        Learned the fundamentals, made friends, and navigated a system most students actively avoid in Karachi. Built discipline through limited resources, solidified core science concepts, and then watched COVID turn college life into recorded lectures, WhatsApp PDFs, and self-directed survival learning.
+    </p>
+</div>
+<div class="edu-card card">
+    <h3 style="color: var(--accent-orange); margin-bottom: 10px;">Secondary School</h3>
+    <p style="color: var(--text-main); font-weight: 500; margin-bottom: 8px;">Al Hameed Secondary School</p>
+    <p style="color: var(--text-dim); font-size: 0.95rem;">2007 – 2019</p>
+    <p style="margin-top: 20px; color: var(--text-dim); line-height: 1.7;">
+        School was a major character-development lab: entered as an extrovert, became a high achiever, got humbled, and exited as an introvert with no social skills. Graduated somewhere above average, having witnessed classmates turn into gangsters, addicts, and everything in between — a firsthand lesson in how much luck shapes your future.
+    </p>
+</div>
+
+
             </div>
         </section>
 
@@ -1992,6 +2073,7 @@
             initScrollTop();
             initMagneticButtons();
             initTimelineDrag();
+            initProjectsDrag();
             initProjectModal();
         });
 
@@ -2150,6 +2232,66 @@
             track.addEventListener('wheel', stopAutoScroll);
         }
 
+        // ==================== PROJECTS DRAG SCROLL ====================
+        function initProjectsDrag() {
+            const track = document.getElementById('projectsTrack');
+            if (!track) return;
+
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            let hasDragged = false;
+
+            track.addEventListener('mousedown', (e) => {
+                isDown = true;
+                hasDragged = false;
+                track.style.cursor = 'grabbing';
+                startX = e.pageX - track.offsetLeft;
+                scrollLeft = track.scrollLeft;
+            });
+
+            track.addEventListener('mouseleave', () => {
+                isDown = false;
+                track.style.cursor = 'grab';
+            });
+
+            track.addEventListener('mouseup', () => {
+                isDown = false;
+                track.style.cursor = 'grab';
+            });
+
+            track.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                hasDragged = true;
+                const x = e.pageX - track.offsetLeft;
+                const walk = (x - startX) * 2;
+                track.scrollLeft = scrollLeft - walk;
+            });
+
+            // Prevent click on cards after drag
+            track.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (hasDragged) {
+                        e.stopPropagation();
+                        e.preventDefault();
+                    }
+                }, true);
+            });
+
+            // Touch support
+            track.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].pageX - track.offsetLeft;
+                scrollLeft = track.scrollLeft;
+            });
+
+            track.addEventListener('touchmove', (e) => {
+                const x = e.touches[0].pageX - track.offsetLeft;
+                const walk = (x - startX) * 2;
+                track.scrollLeft = scrollLeft - walk;
+            });
+        }
+
         // ==================== PROJECT MODAL ====================
         function initProjectModal() {
             const modal = document.getElementById('projectModal');
@@ -2170,6 +2312,14 @@
                     { src: 'projects_screenshots/legalease/1.png', alt: 'LegalEase Screenshot 1' },
                     { src: 'projects_screenshots/legalease/2.png', alt: 'LegalEase Screenshot 2' },
                     { src: 'projects_screenshots/legalease/3.png', alt: 'LegalEase Screenshot 3' }
+                ],
+                cyberproof: [
+                    { src: 'projects_screenshots/cyberproof/1.png', alt: 'CyberProof Screenshot 1' },
+                    { src: 'projects_screenshots/cyberproof/2.png', alt: 'CyberProof Screenshot 2' }
+                ],
+                trnsitkolachi: [
+                    { src: 'projects_screenshots/trnsitkolachi/1.png', alt: 'TRNSIT Kolachi Screenshot 1' },
+                    { src: 'projects_screenshots/trnsitkolachi/2.png', alt: 'TRNSIT Kolachi Screenshot 2' }
                 ],
                 skinlycure: [
                     { src: 'projects_screenshots/skinlycure/1.png', alt: 'Skinly Cure Screenshot 1' },

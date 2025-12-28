@@ -687,6 +687,21 @@
             flex-direction: column;
         }
 
+        .project-card::after {
+            content: 'Click to view →';
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            font-family: var(--font-body);
+            transition: color 0.3s ease;
+        }
+
+        .project-card:hover::after {
+            color: var(--accent-orange);
+        }
+
         .project-card:hover {
             border-color: var(--accent-orange);
         }

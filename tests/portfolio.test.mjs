@@ -23,10 +23,32 @@ assert.doesNotMatch(html, /return to spawn|enter discourse|open side quest|see r
 assert.match(html, /View project/);
 assert.match(html, /id=["']education["']/i);
 assert.match(html, /structured experiment in learning under constraints/i);
-assert.match(html, /WhatsApp PDFs/i);
-assert.match(html, /major character-development lab/i);
-assert.match(html, /Legal information in Pakistan is fragmented/i);
 assert.match(html, /Navigating Karachi’s public transport is opaque/i);
+const projectOrder = ['LegalEase', 'Watch', 'Elenchus', 'LalaScore', 'TRNSIT Kolachi', 'AgentRed', 'DialogSum'];
+const positions = projectOrder.map(name => html.indexOf(`<h3>${name}</h3>`));
+assert.equal(positions.filter(position => position >= 0).length, 7);
+assert.deepEqual([...positions].sort((a, b) => a - b), positions);
+assert.equal((html.match(/<article class="project/g) || []).length, 7);
+assert.doesNotMatch(html, /CyberProof|Skinly Cure/);
+
+const destinations = [
+  'https://github.com/ManzarAli25/watch-it',
+  'https://github.com/ManzarAli25/elenchus',
+  'https://lalascore.lol/',
+  'https://github.com/ManzarAli25/TRNSIT-KOLACHI',
+  'https://github.com/ManzarAli25/AgentRed',
+];
+for (const href of destinations) {
+  const escaped = href.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  assert.match(html, new RegExp(`<a[^>]+href="${escaped}"[^>]+target="_blank"[^>]+rel="noreferrer"`, 'i'));
+}
+assert.doesNotMatch(html, /href="https:\/\/legalease\.site/);
+assert.match(html, /data-project="legalease"/);
+assert.match(html, /data-project="dialogsum"/);
+
+for (const slug of ['legalease','watch','elenchus','lalascore','trnsit','agentred','dialogsum']) {
+  assert.match(html, new RegExp(`assets/projects/${slug}-corner\\.png`));
+}
 assert.match(html, /IntersectionObserver/);
 assert.match(html, /aria-current/);
 assert.doesNotMatch(html, /projects_screenshots\//);

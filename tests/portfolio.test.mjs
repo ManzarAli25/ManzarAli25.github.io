@@ -53,7 +53,7 @@ assert.match(projectArticle('LegalEase'), /<button[^>]+data-project="legalease"/
 assert.match(projectArticle('DialogSum'), /<button[^>]+data-project="dialogsum"/i);
 
 const cornerSlugs = ['legalease','watch','elenchus','lalascore','trnsit','agentred','dialogsum'];
-const cornerReferences = html.match(/assets\/projects\/([a-z]+)-corner\.png/g) || [];
+const cornerReferences = html.match(/assets\/projects\/[^"'\s]+-corner\.png/g) || [];
 assert.equal(cornerReferences.length, cornerSlugs.length);
 for (const slug of cornerSlugs) {
   assert.equal(cornerReferences.filter(reference => reference === `assets/projects/${slug}-corner.png`).length, 1);

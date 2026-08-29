@@ -32,22 +32,31 @@ assert.equal((html.match(/<article class="project/g) || []).length, 7);
 assert.doesNotMatch(html, /CyberProof|Skinly Cure/);
 
 const destinations = [
-  'https://github.com/ManzarAli25/watch-it',
-  'https://github.com/ManzarAli25/elenchus',
-  'https://lalascore.lol/',
-  'https://github.com/ManzarAli25/TRNSIT-KOLACHI',
-  'https://github.com/ManzarAli25/AgentRed',
+  ['Watch', 'https://github.com/ManzarAli25/watch-it'],
+  ['Elenchus', 'https://github.com/ManzarAli25/elenchus'],
+  ['LalaScore', 'https://lalascore.lol/'],
+  ['TRNSIT Kolachi', 'https://github.com/ManzarAli25/TRNSIT-KOLACHI'],
+  ['AgentRed', 'https://github.com/ManzarAli25/AgentRed'],
 ];
-for (const href of destinations) {
+const projectArticle = name => {
+  const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const match = html.match(new RegExp(`<article class="project[^>]*>[\\s\\S]*?<h3>${escapedName}</h3>[\\s\\S]*?</article>`, 'i'));
+  assert.ok(match, `missing project article for ${name}`);
+  return match[0];
+};
+for (const [name, href] of destinations) {
   const escaped = href.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  assert.match(html, new RegExp(`<a[^>]+href="${escaped}"[^>]+target="_blank"[^>]+rel="noreferrer"`, 'i'));
+  assert.match(projectArticle(name), new RegExp(`<a[^>]+href="${escaped}"[^>]+target="_blank"[^>]+rel="noreferrer"`, 'i'));
 }
 assert.doesNotMatch(html, /href="https:\/\/legalease\.site/);
-assert.match(html, /data-project="legalease"/);
-assert.match(html, /data-project="dialogsum"/);
+assert.match(projectArticle('LegalEase'), /<button[^>]+data-project="legalease"/i);
+assert.match(projectArticle('DialogSum'), /<button[^>]+data-project="dialogsum"/i);
 
-for (const slug of ['legalease','watch','elenchus','lalascore','trnsit','agentred','dialogsum']) {
-  assert.match(html, new RegExp(`assets/projects/${slug}-corner\\.png`));
+const cornerSlugs = ['legalease','watch','elenchus','lalascore','trnsit','agentred','dialogsum'];
+const cornerReferences = html.match(/assets\/projects\/([a-z]+)-corner\.png/g) || [];
+assert.equal(cornerReferences.length, cornerSlugs.length);
+for (const slug of cornerSlugs) {
+  assert.equal(cornerReferences.filter(reference => reference === `assets/projects/${slug}-corner.png`).length, 1);
 }
 assert.match(html, /IntersectionObserver/);
 assert.match(html, /aria-current/);

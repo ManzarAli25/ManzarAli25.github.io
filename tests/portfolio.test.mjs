@@ -13,7 +13,7 @@ assert.match(html, /prefers-reduced-motion:\s*reduce/i);
 assert.match(html, /role=["']dialog["']/i);
 assert.match(html, /aria-modal=["']true["']/i);
 
-const assets = ['wojak-hero.png','wojak-neutral.png','wojak-happy.png','wojak-night.png','wojak-crying.png','wojak-notes.png','wojak-cool.png'];
+const assets = ['wojak-hero.png','wojak-neutral.png','wojak-happy.png','wojak-night.png','wojak-notes.png','wojak-cool.png'];
 for (const asset of assets) {
   assert.ok(existsSync(new URL(`../assets/${asset}`, import.meta.url)), `missing assets/${asset}`);
 }

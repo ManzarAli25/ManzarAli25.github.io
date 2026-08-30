@@ -42,25 +42,39 @@ assert.equal((html.match(/<article class="project/g) || []).length, 7);
 assert.doesNotMatch(html, /CyberProof|Skinly Cure/);
 
 const destinations = [
-  ['Watch', 'https://github.com/ManzarAli25/watch-it'],
-  ['Elenchus', 'https://github.com/ManzarAli25/elenchus'],
-  ['LalaScore', 'https://lalascore.lol/'],
-  ['TRNSIT Kolachi', 'https://github.com/ManzarAli25/TRNSIT-KOLACHI'],
-  ['AgentRed', 'https://github.com/ManzarAli25/AgentRed'],
+  ['Watch', 'https://github.com/ManzarAli25/watch-it', 'View Watch project on GitHub (opens in new tab)'],
+  ['Elenchus', 'https://github.com/ManzarAli25/elenchus', 'View Elenchus project on GitHub (opens in new tab)'],
+  ['LalaScore', 'https://lalascore.lol/', 'View LalaScore live site (opens in new tab)'],
+  ['TRNSIT Kolachi', 'https://github.com/ManzarAli25/TRNSIT-KOLACHI', 'View TRNSIT Kolachi project on GitHub (opens in new tab)'],
+  ['AgentRed', 'https://github.com/ManzarAli25/AgentRed', 'View AgentRed project on GitHub (opens in new tab)'],
 ];
 const projectArticle = name => {
-  const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const match = html.match(new RegExp(`<article class="project[^>]*>[\\s\\S]*?<h3>${escapedName}</h3>[\\s\\S]*?</article>`, 'i'));
-  assert.ok(match, `missing project article for ${name}`);
-  return match[0];
+  const heading = `<h3>${name}</h3>`;
+  const headingIndex = html.indexOf(heading);
+  assert.notEqual(headingIndex, -1, `missing project heading for ${name}`);
+  const start = html.lastIndexOf('<article class="project', headingIndex);
+  const end = html.indexOf('</article>', headingIndex);
+  assert.ok(start >= 0 && end > headingIndex, `missing bounded project article for ${name}`);
+  const article = html.slice(start, end + '</article>'.length);
+  assert.equal((article.match(/<article\b/gi) || []).length, 1, `${name} extraction crossed an article boundary`);
+  return article;
 };
-for (const [name, href] of destinations) {
+for (const [name, href, label] of destinations) {
   const escaped = href.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  assert.match(projectArticle(name), new RegExp(`<a[^>]+href="${escaped}"[^>]+target="_blank"[^>]+rel="noreferrer"`, 'i'));
+  const article = projectArticle(name);
+  assert.match(article, new RegExp(`<a[^>]+href="${escaped}"[^>]+target="_blank"[^>]+rel="noreferrer"[^>]+aria-label="${label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`, 'i'));
+  assert.equal((html.match(new RegExp(`href="${escaped}"`, 'g')) || []).length, 1, `${href} must occur exactly once`);
 }
+assert.match(projectArticle('Watch'), /scene-aware sampling[\s\S]*on-demand frame inspection[\s\S]*per-call cost reporting/i);
+assert.match(projectArticle('Elenchus'), /independent evidence lanes[\s\S]*adjudicates/i);
+assert.match(projectArticle('LalaScore'), /public signals[\s\S]*anonymous community evidence[\s\S]*due-process/i);
 assert.doesNotMatch(html, /href="https:\/\/legalease\.site/);
 assert.match(projectArticle('LegalEase'), /<button[^>]+data-project="legalease"/i);
 assert.match(projectArticle('DialogSum'), /<button[^>]+data-project="dialogsum"/i);
+assert.match(html, /id="modalStack"/);
+assert.match(html, /id="modalStatus"/);
+assert.match(html, /legalease:[\s\S]*stack:[\s\S]*status:/i);
+assert.match(html, /dialogsum:[\s\S]*stack:[\s\S]*status:/i);
 
 const cornerSlugs = ['legalease','watch','elenchus','lalascore','trnsit','agentred','dialogsum'];
 const cornerReferences = html.match(/assets\/projects\/[^"'\s]+-corner\.png/g) || [];

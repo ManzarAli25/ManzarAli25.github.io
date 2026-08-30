@@ -24,3 +24,9 @@ Verification:
 - `git diff --check` — passed; Git emitted only its Windows LF-to-CRLF working-copy notices.
 
 Task 5 Chrome/rendered verification was intentionally not performed.
+
+## Review round 1: reduced-motion geometry
+
+Review found that the reduced-motion rule removed transitions and text/CTA transforms but still allowed the normal hover/focus cascade to expand the corner bracket and draw the CTA underline instantly. That made the state change immediate, but not opacity-only.
+
+A focused contract was added first and failed on the missing reduced-motion bracket reset. The media rule now keeps the bracket at `3rem × 3rem`, keeps the CTA underline at `right:100%`, and explicitly pins art, project-number, title, and CTA transforms to `none`. The art opacity reveal remains active; normal hover/focus and touch rules were not changed.

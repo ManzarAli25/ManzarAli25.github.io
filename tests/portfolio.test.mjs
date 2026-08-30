@@ -19,6 +19,12 @@ for (const asset of assets) {
 }
 assert.match(html, /assets\/wojak-hero\.png/, 'hero artwork should remain in use');
 assert.match(html, /class=["'][^"']*project-corner-art/i);
+assert.match(html, /\.project:hover \.project-corner-art/);
+assert.match(html, /\.project:focus-within \.project-corner-art/);
+assert.match(html, /\.corner-bracket/);
+assert.match(html, /@media\(hover:none\)/);
+assert.match(html, /@media\(prefers-reduced-motion:reduce\)/);
+assert.doesNotMatch(html, /\b(?:bounce|elastic|parallax)\b/i);
 assert.doesNotMatch(html, /return to spawn|enter discourse|open side quest|see receipts|inspect pixels/i);
 assert.match(html, /View project/);
 assert.match(html, /id=["']education["']/i);

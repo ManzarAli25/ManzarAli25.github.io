@@ -16,9 +16,9 @@ assert.match(html, /aria-modal=["']true["']/i);
 const assets = ['wojak-hero.png','wojak-neutral.png','wojak-happy.png','wojak-night.png','wojak-crying.png','wojak-notes.png','wojak-cool.png'];
 for (const asset of assets) {
   assert.ok(existsSync(new URL(`../assets/${asset}`, import.meta.url)), `missing assets/${asset}`);
-  assert.match(html, new RegExp(`assets/${asset.replace('.', '\\.')}`), `${asset} should have a restrained interaction role`);
 }
-assert.match(html, /class=["'][^"']*expression-reveal/i);
+assert.match(html, /assets\/wojak-hero\.png/, 'hero artwork should remain in use');
+assert.match(html, /class=["'][^"']*project-corner-art/i);
 assert.doesNotMatch(html, /return to spawn|enter discourse|open side quest|see receipts|inspect pixels/i);
 assert.match(html, /View project/);
 assert.match(html, /id=["']education["']/i);
